@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 16:19:43 by mho               #+#    #+#             */
-/*   Updated: 2023/10/16 16:57:45 by mho              ###   ########.fr       */
+/*   Created: 2023/10/16 16:10:27 by mho               #+#    #+#             */
+/*   Updated: 2023/10/17 11:02:14 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-size_t	strlcpy(char *dst, const char *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	i;
+	char		*dest;
+	const char	*srce;
+	size_t		i;
 
-	i = 0;
-	if (len > 0)
+	dest = dst;
+	srce = src;
+	if (srce == dest)
+		return (dest);
+	else if (dest < srce || dest >= srce + len)
 	{
-		while (i < (len - 1) && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = 0;
+		while (i < len)
+			dest[i] = srce[i++];
 	}
-	while (src[i])
-		i++;
-	return (i);
+	else
+	{
+		while (--len >= 0)
+			dest[i] = srce[i];
+	}
+	return (dest);
 }
