@@ -13,6 +13,11 @@ ft_isalnum.c ft_itoa.c ft_tolower.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
+BONUS_FIL = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
+ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
+
+BONUS := $(addprefix $(SRCS_DIR), $(BONUS_FIL))
+
 HEADER = ./includes/
 
 CFLAGS = -Wall -Wextra -Werror -std=c99
@@ -20,6 +25,8 @@ CFLAGS = -Wall -Wextra -Werror -std=c99
 OPTION = -I $(HEADER)
 
 OBJS = $(SRCS:.c=.o)
+
+BOBJ = $(BONUS:.c=.o)
 
 all: $(NAME)
 
@@ -30,12 +37,15 @@ $(NAME): $(OBJS)
 %.o: %.c
     $(CC) $(CFLAGS) $(OPTION) -c $< -o $@
 
+bonus: $(OBJS) $(BOBJ)
+    ar -rc $(NAME) $(BOBJ) $(OBJS)
+
 clean:
-    rm -f $(OBJS)
+    rm -f $(OBJS) $(BOBJ)
 
 fclean: clean
     rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
