@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:39:35 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 15:58:56 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/20 13:14:00 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -22,7 +22,7 @@ void	ft_putnbr_fd(int n, int fd)
 		write(fd, "-", 1);
 		num = -num;
 	}
-	if (num < 9)
+	if (num <= 9)
 		write(fd, &"0123456789"[num], 1);
 	else if (num >= 10)
 	{

@@ -6,21 +6,21 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 07:39:31 by mho               #+#    #+#             */
-/*   Updated: 2023/10/18 07:42:26 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/19 18:39:01 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 int	ft_lstsize(t_list *lst)
 {
 	int	count;
 
-	count = 1;
+	count = 0;
 	while (lst)
 	{
-		lst = lst -> next;
 		count++;
+		lst = lst -> next;
 	}
 	return (count);
 }

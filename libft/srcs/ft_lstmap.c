@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:34:49 by mho               #+#    #+#             */
-/*   Updated: 2023/10/18 09:34:24 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/20 16:31:00 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
@@ -19,19 +19,18 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst || !f || !del)
 		return (NULL);
-	new = ft_lstnew(lst -> content);
+	new = ft_lstnew(f(lst -> content));
 	if (!new)
 		return (NULL);
 	res = new;
 	lst = lst -> next;
 	while (lst)
 	{
-		new -> next = ft_lstnew(lst -> content);
+		new -> next = ft_lstnew(f(lst -> content));
 		new = new -> next;
 		if (!new)
 			return (NULL);
 		lst = lst -> next;
 	}
-	(void)(*del);
 	return (res);
 }

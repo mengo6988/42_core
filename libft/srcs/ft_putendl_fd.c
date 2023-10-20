@@ -6,16 +6,18 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:31:10 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 15:39:06 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/20 08:40:27 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
 	size_t	len;
 
+	if (!s)
+		return ;
 	len = ft_strlen(s);
 	write(fd, s, len);
 	write(fd, "\n", 1);

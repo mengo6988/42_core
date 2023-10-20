@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:42:42 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 12:54:13 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/19 18:36:54 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 static int	ft_numlen(int s)
 {
@@ -53,7 +53,7 @@ char	*ft_itoa(int n)
 		l = -l;
 	}
 	else if (l == 0)
-		return ("0");
+		res[0] = '0';
 	res[i] = '\0';
 	while (l > 0)
 	{

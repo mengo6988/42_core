@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"libft.h": "c",
+		"unistd.h": "c",
+		"stdexcept": "cpp",
+		"string": "cpp"
+	}
+}

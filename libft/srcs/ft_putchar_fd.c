@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:22:17 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 15:33:48 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/18 11:23:54 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

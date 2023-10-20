@@ -6,17 +6,17 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 07:42:48 by mho               #+#    #+#             */
-/*   Updated: 2023/10/18 08:40:17 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/19 18:44:46 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
 		return (NULL);
-	while (lst -> next != NULL)
-		lst = lst -> next;
+	while (lst->next)
+		lst = lst->next;
 	return (lst);
 }

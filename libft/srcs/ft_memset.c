@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 14:50:48 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 15:30:39 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/18 11:23:51 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {

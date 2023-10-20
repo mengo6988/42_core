@@ -6,24 +6,49 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 07:20:23 by mho               #+#    #+#             */
-/*   Updated: 2023/10/18 08:57:11 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/20 15:19:02 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
+
+char	*ft_strrchr(const char *s, int c)
+{
+	char	*p;
+
+	p = NULL;
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == (unsigned char)c)
+			p = (char *)s;
+		s++;
+	}
+	if (*s == (unsigned char)c)
+		p = (char *)s;
+	return (p);
+}
+
+/*
+
+#include "../libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*p;
 	int		i;
 
-	i = ft_strlen(s);
-	p = s + i;
-	while (*p != *s && *p != c)
+	i = ft_strlen(s) + 1;
+	p = (char *)s + i;
+	while (*p != *s && *p != (unsigned char)c)
 	{
-		if (*p == c)
+		if (*p == (unsigned char)c)
 			return (p);
 		p--;
 	}
+	if (*p == (unsigned char)c)
+		return (p);
 	return (NULL);
 }
+*/

@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 07:31:56 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 08:41:33 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/18 16:46:55 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 size_t	ft_strlen(const char *s)
 {

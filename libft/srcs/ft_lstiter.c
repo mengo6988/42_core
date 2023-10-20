@@ -6,15 +6,15 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:25:03 by mho               #+#    #+#             */
-/*   Updated: 2023/10/18 08:34:19 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/19 19:03:37 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (!lst || f)
+	if (!lst || !f)
 		return ;
 	while (lst)
 	{

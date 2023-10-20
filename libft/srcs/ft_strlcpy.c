@@ -6,13 +6,13 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:19:43 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 08:41:24 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/18 15:06:43 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-size_t	strlcpy(char *dst, const char *src, size_t len)
+size_t	ft_strlcpy(char *dst, const char *src, size_t len)
 {
 	size_t	i;
 

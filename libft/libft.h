@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:51:59 by mho               #+#    #+#             */
-/*   Updated: 2023/10/18 08:57:31 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/20 16:58:43 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
-int		ft_isascii(char c);
-int		ft_isprint(char c);
-int		ft_isalpha(char c);
-int		ft_isdigit(char c);
-int		ft_isalnum(char c);
+int		ft_isascii(int c);
+int		ft_isprint(int c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+int		ft_isalnum(int c);
 
 int		ft_tolower(int c);
-int		toupper(int c);
+int		ft_toupper(int c);
 
 void	ft_bzero(void *b, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
@@ -36,6 +37,7 @@ char	*ft_strdup(const char *s1);
 void	*ft_calloc(size_t count, size_t size);
 
 size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *hs, const char *nd, size_t len);
 
@@ -46,8 +48,8 @@ char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
-size_t	strlcat(char *dest, const char *src, size_t len);
-size_t	strlcpy(char *dst, const char *src, size_t len);
+size_t	ft_strlcat(char *dest, const char *src, size_t len);
+size_t	ft_strlcpy(char *dst, const char *src, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 void	ft_putchar_fd(char c, int fd);
@@ -58,10 +60,10 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_atoi(const char *s);
 char	*ft_itoa(int n);
 
-typedef s_list
+typedef struct s_list
 {
-	void	*content;
-	struct	*s_list;
+	void			*content;
+	struct s_list	*next;
 }	t_list;
 
 t_list	*ft_lstnew(void *content);

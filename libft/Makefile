@@ -4,12 +4,12 @@ CC = gcc
 
 SRCS_DIR = srcs/
 
-SRCS_FIL = ft_strnstr.c ft_isdigit.c ft_putstr_fd.c ft_strlcpy.c ft_strlen.c ft_memcmp.c\
+SRCS_FIL = ft_strnstr.c ft_isdigit.c ft_putstr_fd.c ft_strlcpy.c ft_strlen.c ft_memcmp.c \
 ft_putnbr_fd.c ft_strchr.c ft_striteri.c ft_bzero.c ft_strjoin.c ft_isascii.c \
 ft_memcpy.c ft_isprint.c ft_putendl_fd.c ft_toupper.c ft_split.c ft_isalpha.c \
 ft_memchr.c ft_putchar_fd.c ft_memset.c ft_substr.c ft_strncmp.c ft_strmapi.c \
 ft_strtrim.c ft_memmove.c ft_strlcat.c ft_calloc.c ft_strdup.c ft_atoi.c \
-ft_isalnum.c ft_itoa.c ft_tolower.c
+ft_isalnum.c ft_itoa.c ft_tolower.c ft_strrchr.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
@@ -26,26 +26,26 @@ OPTION = -I $(HEADER)
 
 OBJS = $(SRCS:.c=.o)
 
-BOBJ = $(BONUS:.c=.o)
+BOBJS = $(BONUS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-    ar -rc $(NAME) $(OBJS)
+	ar -rc $(NAME) $(OBJS)
 
 #$(OBJS): $(SRCS)
 %.o: %.c
-    $(CC) $(CFLAGS) $(OPTION) -c $< -o $@
+	$(CC) $(CFLAGS) $(OPTION) -c $< -o $@
 
-bonus: $(OBJS) $(BOBJ)
-    ar -rc $(NAME) $(BOBJ) $(OBJS)
+bonus: $(OBJS) $(BOBJS)
+	ar -rc $(NAME) $(BOBJS) $(OBJS)
 
 clean:
-    rm -f $(OBJS) $(BOBJ)
+	rm -f $(OBJS) $(BOBJS)
 
 fclean: clean
-    rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re bonus

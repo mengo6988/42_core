@@ -6,11 +6,11 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 07:38:24 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 08:40:52 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/18 12:27:44 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
@@ -21,6 +21,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	{
 		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
 			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
 	}
 	return (0);
 }

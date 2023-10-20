@@ -6,31 +6,38 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:10:27 by mho               #+#    #+#             */
-/*   Updated: 2023/10/17 11:02:14 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/19 21:16:07 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char		*dest;
-	const char	*srce;
 	size_t		i;
+	char		*d;
+	char		*s;
 
-	dest = dst;
-	srce = src;
-	if (srce == dest)
-		return (dest);
-	else if (dest < srce || dest >= srce + len)
+	if (!dst || !src)
+		return (dst);
+	d = (char *)dst;
+	s = (char *)src;
+	i = 0;
+	if (s > d)
 	{
 		while (i < len)
-			dest[i] = srce[i++];
+		{
+			d[i] = s[i];
+			i++;
+		}
 	}
 	else
 	{
-		while (--len >= 0)
-			dest[i] = srce[i];
+		while (len > 0)
+		{
+			len--;
+			d[len] = s[len];
+		}
 	}
-	return (dest);
+	return (dst);
 }
