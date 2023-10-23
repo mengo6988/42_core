@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 16:10:27 by mho               #+#    #+#             */
-/*   Updated: 2023/10/23 08:30:45 by mho              ###   ########.fr       */
+/*   Created: 2023/10/17 08:51:59 by mho               #+#    #+#             */
+/*   Updated: 2023/10/21 21:51:40 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+# include "libft.h"
+
+typedef struct s_flags
 {
-	size_t		i;
+	int	left;
+	int	zero;
+	int	dot;
+	int	hash;
+	int	space;
+	int	plus;
+	int	width;
+}	t_flags;
 
-	if (!src && !dst)
-		return (NULL);
-	i = 0;
-	if (src > dst)
-	{
-		while (i < len)
-		{
-			((char *)dst)[i] = ((char *)src)[i];
-			i++;
-		}
-	}
-	else
-	{
-		while (len > 0)
-		{
-			len--;
-			((char *)dst)[len] = ((char *)src)[len];
-		}
-	}
-	return (dst);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:49:36 by mho               #+#    #+#             */
-/*   Updated: 2023/10/19 21:59:12 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/23 08:46:24 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t len)
 	size_t	dest_len;
 	size_t	src_len;
 
-	if (!dest)
+	if (!len)
 		return (ft_strlen(src));
 	dest_len = ft_strlen(dest);
 	src_len = ft_strlen(src);

@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:34:49 by mho               #+#    #+#             */
-/*   Updated: 2023/10/20 16:31:00 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/23 08:19:07 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		new -> next = ft_lstnew(f(lst -> content));
 		new = new -> next;
 		if (!new)
+		{
+			ft_lstclear(&res, del);
 			return (NULL);
+		}
 		lst = lst -> next;
 	}
 	return (res);

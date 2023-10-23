@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 07:43:34 by mho               #+#    #+#             */
-/*   Updated: 2023/10/19 22:00:40 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/23 08:38:43 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strnstr(const char *hs, const char *nd, size_t len)
 	size_t	j;
 	char	*res;
 
-	if (!hs)
+	if (!hs && !len)
 		return (NULL);
 	res = (char *)hs;
 	if (*nd == '\0')
