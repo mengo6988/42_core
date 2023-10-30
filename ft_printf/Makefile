@@ -1,43 +1,54 @@
-NAME = libft.a
+NAME = libftprintf.a
+
+LIBFT = libft.a
 
 CC = gcc
 
 SRCS_DIR = srcs/
 
-SRCS_FIL =
+OBJS_DIR = objs/
+
+SRCS_FIL = check_flags.c ft_printf.c print_i.c print_p.c \
+			print_str.c print_u.c print_x.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
-BONUS_FIL =
+# HEADER = ./includes/
 
-BONUS := $(addprefix $(SRCS_DIR), $(BONUS_FIL))
-
-HEADER = ./includes/
-
-CFLAGS = -Wall -Wextra -Werror -std=c99
+CFLAGS = -Wall -Wextra -Werror
 
 OPTION = -I $(HEADER)
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FIL:.c=.o))
 
-BOBJS = $(BONUS:.c=.o)
+LIBFT_DIR = ./libft
 
-all: $(NAME)
+all:
+		mkdir -p $(OBJS_DIR)
+		make $(NAME)
 
-$(NAME): $(OBJS)
-	ar -rc $(NAME) $(OBJS)
+bonus:
+		mkdir -p $(OBJS_DIR)
+		make $(NAME)
 
 #$(OBJS): $(SRCS)
-%.o: %.c
-	$(CC) $(CFLAGS) $(OPTION) -c $< -o $@
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+					$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(OBJS) $(BOBJS)
-	ar -rc $(NAME) $(BOBJS) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+			ar -rcs $(NAME) $(OBJS)
+
+$(LIBFT):
+		make -C $(LIBFT_DIR)
+		cp $(LIBFT_DIR)/$(LIBFT) .
+		mv $(LIBFT) $(NAME)
 
 clean:
-	rm -f $(OBJS) $(BOBJS)
+	make clean -C $(LIBFT_DIR)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
+	make fclean -C $(LIBFT_DIR)
 	rm -f $(NAME)
 
 re: fclean all

@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "libft.h": "c"
+        "libft.h": "c",
+        "__locale": "c",
+        "__threading_support": "c",
+        "vector": "c"
     }
 }
