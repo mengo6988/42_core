@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 18:32:59 by mho               #+#    #+#             */
-/*   Updated: 2023/10/30 17:26:11 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/31 12:27:18 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	is_flags(char s)
 void	ft_check_flags(const char *s, t_flags *flags, int *i)
 {
 	ft_init_flags(flags);
-	// printf("currentpos = %i\n", *i);
 	while (s[*i] && is_flags(s[*i]))
 	{
 		if (s[*i] == '-')
@@ -87,11 +86,9 @@ void	ft_check_width_precision(const char *s, t_flags *flags, int *i)
 	if (s[*i] == '.' && s[(*i)++])
 	{
 		flags->dot = 1;
+		flags->zero = 0;
 		if (s[*i] >= '0' && s[*i] <= '9')
-		{
 			flags->precision = ft_atoi(s + (*i));
-			flags->zero = 0;
-		}
 		while (!(is_format(s[*i])))
 			(*i)++;
 	}

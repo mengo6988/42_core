@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:51:59 by mho               #+#    #+#             */
-/*   Updated: 2023/10/30 16:48:39 by mho              ###   ########.fr       */
+/*   Updated: 2023/10/31 12:26:58 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <stdio.h>
-
 
 typedef struct s_flags
 {
@@ -48,21 +47,22 @@ int		ft_putstr(char *s, t_flags *flags);
 int		ft_print_str(t_flags *flags, char *str);
 
 int		ft_intlen(int n, int base, t_flags *flags);
+void	ft_putnbr_id(int n, int fd, t_flags *flags);
 int		ft_putnbr(int n, t_flags *flags);
 int		ft_print_i(t_flags *flags, int n);
-int		ft_print_ii(t_flags *flags, int n, int len, int int_len);
+void	ft_print_ii(t_flags *flags, int n, int int_len);
 
 int		ft_print_xx(t_flags *flags, unsigned int n, int len, int hex_len);
 int		ft_print_x(t_flags *flags, unsigned int n);
 void	ft_putnbr_base(unsigned int n, char *base);
 int		ft_puthex(unsigned int n, t_flags *flags);
-int		ft_hexlen(unsigned int n, int base);
+int		ft_hexlen(unsigned int n, int base, t_flags *flags);
 
 int		ft_print_uu(t_flags *flags, unsigned int n, int len, int intlen);
 int		ft_print_u(t_flags *flags, unsigned int n);
-int		ft_putui(unsigned int n);
-void	ft_putui_fd(unsigned int nb, int fd);
-int		ft_uintlen(unsigned int n, int base);
+int		ft_putui(unsigned int n, t_flags *flags);
+void	ft_putui_fd(unsigned int nb, int fd, t_flags *flags);
+int		ft_uintlen(unsigned int n, int base, t_flags *flags);
 
 int		ft_print_p(t_flags *flags, unsigned long long n);
 int		ft_putp(unsigned long long n);
