@@ -3,6 +3,7 @@
         "libft.h": "c",
         "__locale": "c",
         "__threading_support": "c",
-        "vector": "c"
+        "vector": "c",
+        "get_next_line.h": "c"
     }
 }
