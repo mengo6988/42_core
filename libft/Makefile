@@ -31,20 +31,20 @@ BOBJS = $(BONUS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar -rc $(NAME) $(OBJS)
+	@ar -rc $(NAME) $(OBJS)
 
 #$(OBJS): $(SRCS)
 %.o: %.c
-	$(CC) $(CFLAGS) $(OPTION) -c $< -o $@
+	@$(CC) $(CFLAGS) $(OPTION) -c $< -o $@
 
 bonus: $(OBJS) $(BOBJS)
-	ar -rc $(NAME) $(BOBJS) $(OBJS)
+	@ar -rc $(NAME) $(BOBJS) $(OBJS)
 
 clean:
-	rm -f $(OBJS) $(BOBJS)
+	@rm -f $(OBJS) $(BOBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
