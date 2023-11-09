@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 13:23:23 by mho               #+#    #+#             */
-/*   Updated: 2023/10/30 17:12:09 by mho              ###   ########.fr       */
+/*   Updated: 2023/11/09 16:37:56 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	ft_putp(unsigned long long n)
 	int	len;
 
 	len = 0;
+	if (n == 0)
+	{
+		ft_putstr_fd(PTR_NULL, 1);
+		return (ft_strlen(PTR_NULL));
+	}
 	ft_putstr_fd("0x", 1);
 	ft_putp_base(n, "0123456789abcdef");
 	len = ft_ulonglen(n) + 2;

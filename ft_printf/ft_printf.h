@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:51:59 by mho               #+#    #+#             */
-/*   Updated: 2023/10/31 12:26:58 by mho              ###   ########.fr       */
+/*   Updated: 2023/11/09 16:33:31 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <stdio.h>
+
+#if defined (__linux__)
+# define PTR_NULL "(nil)"
+#elif defined (__APPLE__)
+# define PTR_NULL "0x0"
+#endif
 
 typedef struct s_flags
 {
