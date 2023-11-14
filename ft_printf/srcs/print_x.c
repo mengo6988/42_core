@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 21:59:46 by mho               #+#    #+#             */
-/*   Updated: 2023/10/31 12:28:01 by mho              ###   ########.fr       */
+/*   Updated: 2023/11/14 13:39:49 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_print_xx(t_flags *flags, unsigned int n, int len, int hex_len)
 		if (flags->hash && !flags->caps && n != 0)
 			len += ft_putstr_custom("0x");
 		else if (flags->hash && flags->caps && n != 0)
-			len += ft_putstr_custom("OX");
+			len += ft_putstr_custom("0X");
 		len += ft_print_width(flags->precision - hex_len, '0');
 		len += ft_puthex(n, flags);
 		len += ft_print_width(flags->width, ' ');
