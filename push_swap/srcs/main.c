@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:59:52 by mho               #+#    #+#             */
-/*   Updated: 2023/11/13 12:26:40 by mho              ###   ########.fr       */
+/*   Updated: 2023/11/16 23:52:21 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int ac, char **av)
 {
-	int		i;
-	char	**res;
-	int		*arr;
+	t_stack	*stack_a;
+	t_stack *stack_b;
 
-	i = 0;
 	if (ac < 2)
 		return (0);
-	while (av[++i])
-		res = ft_split(av[i], ' ');
-	i = -1;
-	while (res[++i])
-		arr[i] = ft_atoi(res[i]);
+	stack_a = input(ac, av);
+	if (!stack_a || check_duplicate(stack_a))
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
 }
