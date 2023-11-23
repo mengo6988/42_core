@@ -43,3 +43,94 @@ Rotate stack A so that its greatest value is at the bottom.
 To extend this to undefined larger inputs, you would need to apply the split into partitions multiple times, switching stacks to repeat a similar phase as the first one, and acting on large partitions to split them up into smaller ones. Acceptable sizes for partitions are up to about 450. When partitions get much larger than that you need to add a partitioning from stack B to A, ...etc. I will not dwell on this, as your question seems to target inputs of up to 500 values, but it is an essential step to achieve an acceptable asymptotic complexity.
 
 Note that this challenge does not look for an optimal time complexity of the algorithm, but of the output size. So in theory you can spend as much time as you want to try different methods/parameters to get the input sorted and finally take the one that turns out best.
+
+
+Core Algorithm
+
+Solving it using a recursive quick sort algorithm
+```
+void A_to_B(stack A, stack B, size n) {
+   select pivot
+   for (i < r) {
+      if (A[i] > pivot) {
+         ra
+      } else {
+         pb
+      }
+      }
+      rra (no of times you ra to reorder the list)
+}
+
+void B_to_A(stack B, stack A, size n) {
+   select pivot
+   for (i < r) {
+      if (B[i] > pivot) {
+         rb
+      } else {
+         pa
+      }
+      }
+   rrb (no of times you rb to reorder the list)
+}
+```
+
+Basic quicksort is not utilizing the fact that there are total of 4 stacks(TOP of A/B + BOT of A/B)
+This way we can implement a 3 way quicksort, where you use 2 pivots insead of 1
+```
+void A_to_B(stack A, stack B, size n) {
+   select 2 pivots, larger and smaller (big_p, small_p)
+   for (i < n) {
+       if (A[i] > big_p) {
+          ra
+       } else {
+          pb
+          if (B[i] > small_p) {
+             rb
+          }
+       }
+   }
+   rra/rrb/rrr to reset position
+}
+
+void B_to_A(stack A, stack B, size n) {
+   select 2 pivots, larger and smaller (big_p, small_p)
+   for (i < n) {
+       if (B[i] small_p) {
+          rb
+       } else {
+          pa
+          if (A[i] < big_p) {
+             ra
+          }
+       }
+       rra/rrb/rrr to reset position
+   }
+}
+
+```
+
+After each sort, there will be 3 "chunks" lets call them L, M and S (Large, medium, small) we will have to sort those stacks as well. We will call the function again using recursion
+```
+void A_to_B(stack A, stack B, size n) {
+   splitting based on pivot
+   A_to_B(sizeOF(ra)) // chunk_L
+   B_to_A(sizeOf(rb)) // chunk_M
+   B_to_A(sizeOf(pb-rb)) //chunk_S
+}
+
+void B_to_A(stack A, stack B, size n) {
+   splitting based on pivot
+   B_to_A(sizeOf(pa - ra)) // chunk_L
+   B_to_A(sizeOf(ra)) // chunk_M
+   A_to_B(sizeOf(rb)) // chunk_S
+}
+
+```
+And of course we have to add the base case in. In this case we will have any chunks < 5
+```
+if chunk/n < 5 {
+   simple sort
+}
+```
+
+now that we have our algorithm, its time to implement it in code!
