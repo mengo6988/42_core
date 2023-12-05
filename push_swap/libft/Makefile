@@ -33,7 +33,7 @@ BOBJS = $(BONUS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	# @ar -rc $(NAME) $(OBJS)
+	@ar -rc $(NAME) $(OBJS)
 
 #$(OBJS): $(SRCS)
 %.o: %.c

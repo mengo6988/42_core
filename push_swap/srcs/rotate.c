@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:00:27 by mho               #+#    #+#             */
-/*   Updated: 2023/11/22 19:12:53 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/05 13:41:54 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,18 @@ void	rotate(t_stack *stack)
 
 void	ra(t_ps *data)
 {
+	enum e_op content;
+
+	content = e_ra;
 	rotate(data->a);
-	ft_lstadd_back(data->op, ft_lstnew("ra"));
+	op_lstadd_back(&data->op, op_new(content));
 }
 
 void	rb(t_ps *data)
 {
+	enum e_op content;
+
+	content = e_rb;
 	rotate(data->b);
-	ft_lstadd_back(data->op, ft_lstnew("rb"));
+	op_lstadd_back(&data->op, op_new(content));
 }

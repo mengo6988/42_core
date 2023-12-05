@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:06:20 by mho               #+#    #+#             */
-/*   Updated: 2023/11/22 19:13:03 by mho              ###   ########.fr       */
+/*   Updated: 2023/11/28 15:11:54 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,19 @@ void	swap(t_stack *stack)
 
 void	sa(t_ps *data)
 {
+
+	enum e_op content;
+
+	content = e_sa;
 	swap(data->a);
-	ft_lstadd_back(data->op, ft_lstnew("sa"));
+	op_lstadd_back(&data->op, op_new(content));
 }
 
 void	sb(t_ps *data)
 {
+	enum e_op content;
+
+	content = e_sb;
 	swap(data->b);
-	ft_lstadd_back(data->op, ft_lstnew("sb"));
+	op_lstadd_back(&data->op, op_new(content));
 }
