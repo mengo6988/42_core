@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:59:52 by mho               #+#    #+#             */
-/*   Updated: 2023/12/05 15:32:24 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/05 21:43:37 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	main(int ac, char **av)
 	fill_stack(data->a, ac, av);
 	sort(data);
 	print_op(data->op);
-	printf("after---------------------------------\n");
-	int i = data->a->head;
-	for (int count = 0; count < data->a->size; count++)
-	{
+	// printf("after---------------------------------\n");
+	// int i = data->a->head;
+	// for (int count = 0; count < data->a->size; count++)
+	// {
 
-		printf("%i\n", data->a->arr[i]);
-		i = i_downdown(data->a, i);
-	}
+	// 	printf("%i\n", data->a->arr[i]);
+	// 	i = i_downdown(data->a, i);
+	// }
 	free(data);
 	return (0);
 	// system("leaks push_swap");

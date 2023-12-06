@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 07:29:12 by mho               #+#    #+#             */
-/*   Updated: 2023/12/05 14:44:54 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/05 21:38:20 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	chunk_sort(t_ps *data)
 void rec_sort(t_ps *data, t_chunk *chunk_to_sort)
 {
 	t_split	split;
-	int i;
-	i = data->a->head;
+	// int i;
+	// i = data->a->head;
 	// printf("BEFORE---------------------------------\n");
 	// for (int count = 0; count < data->a->size; count++)
 	// {
