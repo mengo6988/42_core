@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:02:52 by mho               #+#    #+#             */
-/*   Updated: 2023/11/28 15:10:14 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 08:31:25 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	reverse_rotate(t_stack *stack)
 
 void	rra(t_ps *data)
 {
-	enum e_op content;
+	enum e_op	content;
 
 	content = e_rra;
 	reverse_rotate(data->a);
@@ -39,7 +39,7 @@ void	rra(t_ps *data)
 
 void	rrb(t_ps *data)
 {
-	enum e_op content;
+	enum e_op	content;
 
 	content = e_rrb;
 	reverse_rotate(data->b);

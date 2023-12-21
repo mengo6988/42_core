@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 08:38:12 by mho               #+#    #+#             */
-/*   Updated: 2023/11/28 14:57:59 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 08:31:20 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_ol	*op_new(enum e_op op)
 
 	res = malloc(sizeof(t_ol));
 	if (!res)
-		return NULL;
+		return (NULL);
 	res->next = NULL;
 	res->op = op;
 	return (res);
@@ -35,7 +35,7 @@ t_ol	*op_lstlast(t_ol *lst)
 
 void	op_lstadd_back(t_ol **lst, t_ol *new)
 {
-	t_ol *last;
+	t_ol	*last;
 
 	if (!new || !lst)
 		return ;

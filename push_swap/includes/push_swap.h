@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:45:22 by mho               #+#    #+#             */
-/*   Updated: 2023/12/05 13:28:33 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 09:01:48 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int					str_isvalid(char *str);
 void				print_op(t_ol *op);
 void				init_ol(char **arr);
 void				output_check(t_ol *op);
+char				**parse_args(int ac, char **av);
 
 // move
 int					move_elements(t_ps *data, enum e_loc from, enum e_loc to);
@@ -138,7 +139,8 @@ void				sort_three_bot_b(t_ps *data, int max);
 
 // sort utils
 void				innit_split(t_chunk *min, t_chunk *mid, t_chunk *max);
-void 				set_split_target(t_chunk *chunk_to_sort, t_chunk *min, t_chunk *mid, t_chunk *max);
+void				set_split_target(t_chunk *chunk_to_sort, t_chunk *min,
+						t_chunk *mid, t_chunk *max);
 void				set_pivots(t_chunk *chunk, int *large_pivot,
 						int *small_pivot, int max_val);
 
@@ -146,13 +148,14 @@ void				set_pivots(t_chunk *chunk, int *large_pivot,
 void				sort(t_ps *data);
 void				chunk_sort(t_ps *data);
 void				rec_sort(t_ps *data, t_chunk *chunk_to_sort);
-void				split_chunk(t_ps *data, t_chunk *chunk_to_sort, t_split *split);
+void				split_chunk(t_ps *data, t_chunk *chunk_to_sort,
+						t_split *split);
 void				loc_opti(t_ps *data, t_chunk *to_sort);
 
 // stack init
-void				init_ps(t_ps *data, int ac);
+void				init_ps(t_ps *data);
 t_stack				*init_stack(int size);
-void				fill_stack(t_stack *stack, int ac, char **av);
+void				fill_stack(t_ps *data, int ac, char **av);
 void				check_duplicates(int *numbers, int size);
 void				rank_numbers(int *to_rank, int *dest, int size);
 

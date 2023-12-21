@@ -6,15 +6,15 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:41:19 by mho               #+#    #+#             */
-/*   Updated: 2023/11/28 15:15:26 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 08:30:18 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_three(t_ps *data, t_chunk *chunk)
+void	sort_three(t_ps *data, t_chunk *chunk)
 {
-	int max;
+	int	max;
 
 	max = chunk_max_value(data, chunk);
 	if (chunk->loc == TOP_A)
@@ -30,9 +30,9 @@ void sort_three(t_ps *data, t_chunk *chunk)
 	sort_two(data, chunk);
 }
 
-void sort_three_top_a(t_ps *data, int max)
+void	sort_three_top_a(t_ps *data, int max)
 {
-	int i;
+	int	i;
 
 	i = data->a->head;
 	if (data->a->arr[i] == max)
@@ -50,9 +50,9 @@ void sort_three_top_a(t_ps *data, int max)
 	}
 }
 
-void sort_three_top_b(t_ps *data, int max)
+void	sort_three_top_b(t_ps *data, int max)
 {
-	int i;
+	int	i;
 
 	pa(data);
 	i = data->b->head;
@@ -70,11 +70,11 @@ void sort_three_top_b(t_ps *data, int max)
 	else
 		pa(data);
 	pa(data);
-} //redo
+}
 
-void sort_three_bot_a(t_ps *data, int max)
+void	sort_three_bot_a(t_ps *data, int max)
 {
-	int i;
+	int	i;
 
 	rra(data);
 	rra(data);
@@ -95,9 +95,9 @@ void sort_three_bot_a(t_ps *data, int max)
 	}
 }
 
-void sort_three_bot_b(t_ps *data, int max)
+void	sort_three_bot_b(t_ps *data, int max)
 {
-	int count;
+	int	count;
 
 	count = 3;
 	while (count-- > 0)

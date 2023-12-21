@@ -6,16 +6,16 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:36:59 by mho               #+#    #+#             */
-/*   Updated: 2023/12/05 10:15:50 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 09:05:29 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_ps(t_ps *data, int ac)
+void	init_ps(t_ps *data)
 {
-	data->a = init_stack(ac - 1);
-	data->b = init_stack(ac - 1);
+	data->a = NULL;
+	data->b = NULL;
 	data->op = NULL;
 }
 
@@ -33,24 +33,31 @@ t_stack	*init_stack(int size)
 	return (stack);
 }
 
-void	fill_stack(t_stack *stack, int ac, char **av)
+void	fill_stack(t_ps *data, int ac, char **av)
 {
 	int		i;
 	int		*numbers;
+	char	**args;
+	int		length;
 
+	args = parse_args(ac, av);
+	length = 0;
+	while (args[length])
+		length++;
+	data->a = init_stack(length);
+	data->b = init_stack(length);
 	numbers = malloc(sizeof(int *) * (ac - 1));
 	if (!numbers)
 		return ;
-	stack->size = ac - 1;
-	stack->tail = ac - 2;
-	i = 0;
-	while (++i < ac)
-		numbers[i - 1] = ft_atoi(av[i]);
-	// for (i=0; i < ac; i++)
-	// 	ft_printf("%i ", numbers[i]);
-	check_duplicates(numbers, stack->size);
-	rank_numbers(numbers, stack->arr, stack->size);
+	data->a->size = length;
+	data->a->tail = length - 1;
+	i = -1;
+	while (args[++i])
+		numbers[i] = ft_atoi(args[i]);
+	check_duplicates(numbers, data->a->size);
+	rank_numbers(numbers, data->a->arr, data->a->size);
 	free(numbers);
+	free(args);
 }
 
 void	check_duplicates(int *numbers, int size)
@@ -77,23 +84,19 @@ void	check_duplicates(int *numbers, int size)
 void	rank_numbers(int *to_rank, int *dest, int size)
 {
 	int	i;
-	// int	j;
-	// int	lower;
+	int	j;
+	int	lower;
 
 	i = -1;
 	while (++i < size)
 	{
-		// j = -1;
-		// lower = 1;
-		// while (++j < size)
-		// {
-		// 	if (to_rank[i] > to_rank[j])
-		// 		lower++;
-		// }
-		// dest[i] = lower;
-		dest[i] = to_rank[i];
+		j = -1;
+		lower = 1;
+		while (++j < size)
+		{
+			if (to_rank[i] > to_rank[j])
+				lower++;
+		}
+		dest[i] = lower;
 	}
 }
-// Stack Utils
-
-

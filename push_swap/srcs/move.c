@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 08:42:49 by mho               #+#    #+#             */
-/*   Updated: 2023/12/05 13:36:21 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 08:35:36 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	move_elements(t_ps *data, enum e_loc from, enum e_loc to)
 	return (1);
 }
 
-void move_from_top_a(t_ps *data, enum e_loc to)
+void	move_from_top_a(t_ps *data, enum e_loc to)
 {
 	if (to == TOP_B)
 		pb(data);
@@ -38,7 +38,7 @@ void move_from_top_a(t_ps *data, enum e_loc to)
 	}
 }
 
-void move_from_top_b(t_ps *data, enum e_loc to)
+void	move_from_top_b(t_ps *data, enum e_loc to)
 {
 	if (to == TOP_A)
 		pa(data);
@@ -51,7 +51,7 @@ void move_from_top_b(t_ps *data, enum e_loc to)
 	}
 }
 
-void move_from_bot_b(t_ps *data, enum e_loc to)
+void	move_from_bot_b(t_ps *data, enum e_loc to)
 {
 	if (to == TOP_B)
 		rrb(data);
@@ -68,7 +68,7 @@ void move_from_bot_b(t_ps *data, enum e_loc to)
 	}
 }
 
-void move_from_bot_a(t_ps *data, enum e_loc to)
+void	move_from_bot_a(t_ps *data, enum e_loc to)
 {
 	if (to == TOP_B)
 	{

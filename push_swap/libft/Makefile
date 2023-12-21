@@ -11,7 +11,7 @@ ft_memchr.c ft_putchar_fd.c ft_memset.c ft_substr.c ft_strncmp.c ft_strmapi.c \
 ft_strtrim.c ft_memmove.c ft_strlcat.c ft_calloc.c ft_strdup.c ft_atoi.c \
 ft_isalnum.c ft_itoa.c ft_tolower.c ft_strrchr.c check_flags.c ft_printf.c print_i.c print_p.c \
 print_str.c print_u.c print_x.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
-ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
+ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c get_next_line.c
 
 # SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
