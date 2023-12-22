@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:45:22 by mho               #+#    #+#             */
-/*   Updated: 2023/12/21 09:01:48 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/22 08:36:19 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void				move_from_bot_a(t_ps *data, enum e_loc to);
 t_ol				*op_new(enum e_op op);
 t_ol				*op_lstlast(t_ol *lst);
 void				op_lstadd_back(t_ol **lst, t_ol *new);
+void				op_lstclear(t_ol **lst, void (*del)(void *));
 
 // print
 void				combine_ab(t_ol *op, enum e_op o);
@@ -115,11 +116,13 @@ void				pb(t_ps *data);
 void				reverse_rotate(t_stack *stack);
 void				rra(t_ps *data);
 void				rrb(t_ps *data);
+void				rrr(t_ps *data);
 
 // r
 void				rotate(t_stack *stack);
 void				ra(t_ps *data);
 void				rb(t_ps *data);
+void				rr(t_ps *data);
 
 // simple sort
 void				simple_sort_two(t_ps *data);
@@ -156,7 +159,7 @@ void				loc_opti(t_ps *data, t_chunk *to_sort);
 void				init_ps(t_ps *data);
 t_stack				*init_stack(int size);
 void				fill_stack(t_ps *data, int ac, char **av);
-void				check_duplicates(int *numbers, int size);
+void				check_duplicates_min_max(int *numbers, int size);
 void				rank_numbers(int *to_rank, int *dest, int size);
 
 // stack utils
@@ -164,10 +167,18 @@ int					is_full(t_stack *stack);
 int					i_downdown(t_stack *stack, int index);
 int					i_upup(t_stack *stack, int index);
 int					stack_size(t_stack *stack);
+void				free_args(char **args);
 
 // swap
 void				swap(t_stack *stack);
 void				sa(t_ps *data);
 void				sb(t_ps *data);
+void				ss(t_ps *data);
+
+// utils
+void				exit_error(void);
+int					ft_atoi_ps(const char *s);
+int					is_sorted(t_stack *stack);
+void				free_shit(t_ps *data);
 
 #endif

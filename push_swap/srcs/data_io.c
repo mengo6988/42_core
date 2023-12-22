@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 22:53:42 by mho               #+#    #+#             */
-/*   Updated: 2023/12/21 08:36:59 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/22 09:20:29 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,29 @@ void	init_ol(char **arr)
 
 void	output_check(t_ol *op)
 {
-	if ((op->op == e_sa && op->next->op == e_sb) || (op->op == e_sb
-			&& op->next->op == e_sa))
-		combine_ab(op, e_ss);
-	else if ((op->op == e_ra && op->next->op == e_rb) || (op->op == e_rb
-			&& op->next->op == e_ra))
-		combine_ab(op, e_rr);
-	else if ((op->op == e_rra && op->next->op == e_rrb) || (op->op == e_rrb
-			&& op->next->op == e_rra))
-		combine_ab(op, e_rrr);
-	else if ((op->op == e_pa && op->next->op == e_pb) || (op->op == e_pb
-			&& op->next->op == e_pa) || (op->op == e_sa && op->next->op == e_sa)
-		|| (op->op == e_sb && op->next->op == e_sb))
-		delete_two(op);
-	else if (op->op == e_ra && op->next->op == e_pb
-		&& op->next->next->op == e_rra)
-		three_to_two(op, e_sa);
-	else if (op->op == e_rb && op->next->op == e_pa
-		&& op->next->next->op == e_rrb)
-		three_to_two(op, e_sb);
+	if (op->next != NULL && op->next->next != NULL)
+	{
+		if ((op->op == e_sa && op->next->op == e_sb) || (op->op == e_sb
+				&& op->next->op == e_sa))
+			combine_ab(op, e_ss);
+		else if ((op->op == e_ra && op->next->op == e_rb) || (op->op == e_rb
+				&& op->next->op == e_ra))
+			combine_ab(op, e_rr);
+		else if ((op->op == e_rra && op->next->op == e_rrb) || (op->op == e_rrb
+				&& op->next->op == e_rra))
+			combine_ab(op, e_rrr);
+		else if ((op->op == e_pa && op->next->op == e_pb) || (op->op == e_pb
+				&& op->next->op == e_pa)
+			|| (op->op == e_sa && op->next->op == e_sa)
+			|| (op->op == e_sb && op->next->op == e_sb))
+			delete_two(op);
+		else if (op->op == e_ra && op->next->op == e_pb
+			&& op->next->next->op == e_rra)
+			three_to_two(op, e_sa);
+		else if (op->op == e_rb && op->next->op == e_pa
+			&& op->next->next->op == e_rrb)
+			three_to_two(op, e_sb);
+	}
 }
 
 char	**parse_args(int ac, char **av)
@@ -97,5 +101,11 @@ char	**parse_args(int ac, char **av)
 	}
 	res = ft_split(args, ' ');
 	free(args);
+	i = -1;
+	while (res[++i])
+	{
+		if (str_isvalid(res[i]) == 0)
+			exit_error();
+	}
 	return (res);
 }

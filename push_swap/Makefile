@@ -38,6 +38,8 @@ ART = ${ART1} ${ART2}
 
 NAME = push_swap
 
+BONUS = checker
+
 LIBFT = libft.a
 
 CC = gcc
@@ -46,31 +48,50 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-SRCS_FIL = chunk_util.c data_io.c main.c move.c op_lst_util.c print.c push.c reverse_rotate.c rotate.c \
-		simple_sort.c small_arr_op.c sort_three_op.c sort_utils.c sort.c stack_init.c stack_utils.c swap.c
+BONUS_DIR = srcs/
+
+BOBJS_DIR = bobjs/
+
+SRCS_FIL = chunk_util.c data_io.c push_swap.c move.c op_lst_util.c print.c push.c reverse_rotate.c rotate.c \
+		simple_sort.c small_arr_op.c sort_three_op.c sort_utils.c sort.c stack_init.c stack_utils.c swap.c \
+		utils.c
+
+BONUS_FIL = chunk_util.c data_io.c checker.c move.c op_lst_util.c print.c push.c reverse_rotate.c rotate.c \
+		simple_sort.c small_arr_op.c sort_three_op.c sort_utils.c sort.c stack_init.c stack_utils.c swap.c \
+		utils.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
+BONUSS := $(addprefix $(BONUS_DIR), $(BONUS_FIL))
+
 HEADER = ./includes/
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
 OPTION = -I $(HEADER)
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FIL:.c=.o))
 
+BOBJS = $(addprefix $(BOBJS_DIR), $(BONUS_FIL:.c=.o))
+
 LIBFT_DIR = ./libft
 
 all: $(OBJS_DIR) $(NAME) builder complete
 
-# bonus:
-# 	@mkdir -p $(OBJS_DIR)
-# 	@make $(NAME)
+bonus: builder complete
+	@make $(BONUS)
+
+$(BOBJS_DIR):
+	@mkdir -p $(BOBJS_DIR)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
 #$(OBJS): $(SRCS)
+
+$(BOBJS_DIR)%.o: $(BONUS_DIR)%.c | $(BOBJS_DIR)
+	@$(CC) $(CFLAGS) $(OPTION) -c $< -o $@
+
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) ${OPTION} -c $< -o $@
 
@@ -79,6 +100,9 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
 
+$(BONUS): $(BOBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(BOBJS) -o $(BONUS) -L$(LIBFT_DIR) -lft
+
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 	@cp $(LIBFT_DIR)/$(LIBFT) .
@@ -86,18 +110,18 @@ $(LIBFT):
 
 clean: clean_loader complete
 	@make clean -C $(LIBFT_DIR)
-	@rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR) $(BOBJS_DIR)
 
 
 fclean: fclean_loader complete
 	@make fclean -C $(LIBFT_DIR)
-	@rm -rf $(OBJS_DIR)
-	@rm -f $(NAME)
+	@rm -rf $(OBJS_DIR) $(BOBJS_DIR)
+	@rm -f $(NAME) $(BONUS)
 
 fcleans: fclean_loader
 	@make fclean -C $(LIBFT_DIR)
-	@rm -rf $(OBJS_DIR)
-	@rm -f $(NAME)
+	@rm -rf $(OBJS_DIR) $(BOBJS_DIR)
+	@rm -f $(NAME) $(BONUS)
 
 re: fcleans all complete
 
@@ -193,7 +217,7 @@ complete:
 	@echo "\n"
 	@sleep 0.8 &&	echo "\033[2J\033[H"
 
-.PHONY: all clean fclean re rotate_art clean_loader fclean_loader builder fcleans
+.PHONY: all clean fclean re rotate_art clean_loader fclean_loader builder fcleans bonus
 
 # @echo -e "\033[2J\033[1;1H"
 # 	@echo -e "\033[9A\033[K"

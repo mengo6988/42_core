@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:36:59 by mho               #+#    #+#             */
-/*   Updated: 2023/12/21 09:05:29 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/21 15:43:37 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,25 @@ void	fill_stack(t_ps *data, int ac, char **av)
 	length = 0;
 	while (args[length])
 		length++;
+	if (length == 0)
+		exit_error();
 	data->a = init_stack(length);
 	data->b = init_stack(length);
-	numbers = malloc(sizeof(int *) * (ac - 1));
+	numbers = malloc(sizeof(int *) * (length - 1));
 	if (!numbers)
 		return ;
 	data->a->size = length;
 	data->a->tail = length - 1;
 	i = -1;
 	while (args[++i])
-		numbers[i] = ft_atoi(args[i]);
-	check_duplicates(numbers, data->a->size);
+		numbers[i] = ft_atoi_ps(args[i]);
+	check_duplicates_min_max(numbers, data->a->size);
 	rank_numbers(numbers, data->a->arr, data->a->size);
 	free(numbers);
-	free(args);
+	free_args(args);
 }
 
-void	check_duplicates(int *numbers, int size)
+void	check_duplicates_min_max(int *numbers, int size)
 {
 	int	i;
 	int	j;
@@ -68,14 +70,13 @@ void	check_duplicates(int *numbers, int size)
 	i = -1;
 	while (++i < size)
 	{
+		if (numbers[i] > INT_MAX || numbers[i] < INT_MIN)
+			exit_error();
 		j = -1;
 		while (++j < size)
 		{
 			if (numbers[i] == numbers[j] && i != j)
-			{
-				ft_printf("Error\n");
-				exit(0);
-			}
+				exit_error();
 			j++;
 		}
 	}

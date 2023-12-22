@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 08:38:12 by mho               #+#    #+#             */
-/*   Updated: 2023/12/21 08:31:20 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/22 10:29:47 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,29 @@ void	op_lstadd_back(t_ol **lst, t_ol *new)
 	else
 		*lst = new;
 }
+
+void	op_lstclear(t_ol **lst, void (*del)(void *))
+{
+	t_ol	*tmp;
+	t_ol	*next;
+
+	if (!lst || !del)
+		return ;
+	tmp = *lst;
+	while (tmp)
+	{
+		next = tmp->next;
+		del(tmp);
+		tmp = next;
+	}
+	*lst = NULL;
+}
+
+// void	op_lstdelone(t_ol *lst, void (*del)(void *))
+// {
+// 	if (!lst || !del)
+// 		return ;
+// 	if (del)
+// 		del(lst -> content);
+// 	free(lst);
+// }

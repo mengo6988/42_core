@@ -46,7 +46,7 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-SRCS_FIL = test.c
+SRCS_FIL = pipex.c utils.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
@@ -76,7 +76,7 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
 
 # $(NAME): $(OBJS) $(LIBFT)
 # 	@ar -rcs $(NAME) $(OBJS)
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) builder complete
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
 
 $(LIBFT):
@@ -85,13 +85,13 @@ $(LIBFT):
 	@mv $(LIBFT) $(NAME)
 
 # clean: clean_loader complete
-clean:
+clean: clean_loader complete
 	@make clean -C $(LIBFT_DIR)
 	@rm -rf $(OBJS_DIR)
 
 
 # fclean: fclean_loader complete
-fclean:
+fclean: fclean_loader complete
 	@make fclean -C $(LIBFT_DIR)
 	@rm -rf $(OBJS_DIR)
 	@rm -f $(NAME)

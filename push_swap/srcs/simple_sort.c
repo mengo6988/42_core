@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:25:30 by mho               #+#    #+#             */
-/*   Updated: 2023/12/21 08:35:01 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/22 09:21:13 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,22 @@ void	simple_sort_three(t_ps *data)
 	int	second;
 	int	third;
 
-	first = data->a->arr[0];
-	second = data->a->arr[1];
-	third = data->a->arr[2];
+	second = i_downdown(data->a, data->a->head);
+	third = i_downdown(data->a, second);
+	first = data->a->arr[data->a->head];
+	second = data->a->arr[second];
+	third = data->a->arr[third];
 	if (second < first && first < third && third > second)
 		sa(data);
-	else if ((third < second && second < first && first > third)
-		|| (first < second && second > third && third > first))
+	else if (third < second && second < first && first > third)
 	{
 		sa(data);
 		rra(data);
+	}
+	else if (first < second && second > third && third > first)
+	{
+		sa(data);
+		ra(data);
 	}
 	else if (first > second && second < third && first > third)
 		ra(data);
@@ -44,10 +50,10 @@ void	simple_sort_three(t_ps *data)
 
 void	simple_sort_five(t_ps *data)
 {
-	while (stack_size(data->a) >= 4)
+	while (stack_size(data->a) >= 4 && is_sorted(data->a) == 0)
 	{
 		if (data->a->arr[data->a->head] == 1
-			|| data->a->arr[data->a->head] == 2)
+			|| (data->a->arr[data->a->head] == 2 && data->a->size == 5))
 			pb(data);
 		else
 			ra(data);

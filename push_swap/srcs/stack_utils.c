@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 18:40:29 by mho               #+#    #+#             */
-/*   Updated: 2023/12/21 08:30:52 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/22 09:17:13 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,15 @@ int	stack_size(t_stack *stack)
 		return ((stack->size - stack->head) + stack->tail + 1);
 	else
 		return (stack->tail - stack->head + 1);
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	i = -1;
+	while (args[++i])
+		free(args[i]);
+	free(args[i]);
+	free(args);
 }
