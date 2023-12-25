@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:17 by mho               #+#    #+#             */
-/*   Updated: 2023/12/22 11:46:06 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/26 07:39:25 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_here_doc(char *delimiter, int *pipe_fd)
 {
 	char	*res;
 
+	close(pipe_fd[0]);
 	while (1)
 	{
 		write(STDOUT_FILENO, "here_doc> ", 10);
@@ -25,7 +26,7 @@ void	ft_here_doc(char *delimiter, int *pipe_fd)
 			free(res);
 			exit(0);
 		}
-		ft_putstr_fd(res, pipe_fd[0]);
+		ft_putstr_fd(res, pipe_fd[1]);
 		free(res);
 	}
 }
@@ -114,6 +115,7 @@ int	main(int ac, char **av, char **envp)
 			here_doc(pipex.delimiter);
 		else
 			dup2(pipex.in_fd, STDIN_FILENO);
+
 		while (pipex.cmd_index < (ac - 2))
 		{
 			child_process(&pipex, av, envp);
