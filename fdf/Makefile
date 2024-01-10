@@ -36,9 +36,7 @@ ART2 = \n \
 
 ART = ${ART1} ${ART2}
 
-NAME = push_swap
-
-LIBFT = libft.a
+NAME = fdf
 
 CC = gcc
 
@@ -46,56 +44,61 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-SRCS_FIL = chunk_util.c data_io.c main.c move.c op_lst_util.c print.c push.c reverse_rotate.c rotate.c \
-		simple_sort.c small_arr_op.c sort_three_op.c sort_utils.c sort.c stack_init.c stack_utils.c swap.c
+# SRCS_FIL = main.c hooks.c bresenham.c
+SRCS_FIL = parse.c utils.c main.c bresenham.c projection.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
 HEADER = ./includes/
 
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 
-OPTION = -I $(HEADER)
+INCLUDES = -I$(HEADER) -I$(LIBFT_DIR) -I$(MLX_DIR)
+
+LIBFT = $(LIBFT_DIR)libft.a
+MLX = $(MLX_DIR)libmlx.a
+
+MLX_DIR = ./minilibx_macos/
+LIBFT_DIR = ./libft/
+
+LIBRARIES = -L$(MLX_DIR) -L$(LIBFT_DIR) -lmlx -lm -lft -framework OpenGL -framework AppKit
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FIL:.c=.o))
 
-LIBFT_DIR = ./libft
-
-all: $(OBJS_DIR) $(NAME) builder complete
-
-# bonus:
-# 	@mkdir -p $(OBJS_DIR)
-# 	@make $(NAME)
+all: $(NAME)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
-#$(OBJS): $(SRCS)
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
-	@$(CC) $(CFLAGS) ${OPTION} -c $< -o $@
+	@$(CC) $(CFLAGS) ${INCLUDES} -c $< -o $@
 
-# $(NAME): $(OBJS) $(LIBFT)
-# 	@ar -rcs $(NAME) $(OBJS)
-$(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
+
+$(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LIBRARIES) -o $(NAME)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
-	@cp $(LIBFT_DIR)/$(LIBFT) .
-	@mv $(LIBFT) $(NAME)
 
-clean: clean_loader complete
+$(MLX):
+	@make -C $(MLX_DIR)
+
+clean:
 	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MLX_DIR)
 	@rm -rf $(OBJS_DIR)
 
 
-fclean: fclean_loader complete
+fclean:
 	@make fclean -C $(LIBFT_DIR)
+	@rm -f $(MLX)
 	@rm -rf $(OBJS_DIR)
 	@rm -f $(NAME)
 
-fcleans: fclean_loader
+fcleans:
 	@make fclean -C $(LIBFT_DIR)
+	@rm -f $(MLX)
 	@rm -rf $(OBJS_DIR)
 	@rm -f $(NAME)
 
