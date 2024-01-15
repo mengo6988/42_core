@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:42:03 by mho               #+#    #+#             */
-/*   Updated: 2024/01/10 16:44:36 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/15 21:03:17 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,27 @@ void	str_to_coor(char *str, int i, int j, t_3d *res)
 {
 	int index;
 
-	res->x = j * 30;
-	res->y = i * 30;
-	res->z = ft_atoi(str) * 30;
+	res->x = j;
+	res->y = i;
+	res->z = ft_atoi(str);
 	index = 0;
 	while (str[index])
 	{
-		while (ft_isdigit(str[index]))
+		while (ft_isdigit(str[index]) || str[index] == '-')
 			index++;
-		// if (str[index] == ',')
-		// {
-		// 	index = index + 2;
-		// 	res->color = ft_atoi_base(str + index, BASE);
-		// }
+		if (str[index] == ',')
+		{
+			ft_printf("running\n");
+			index = index + 2;
+			res->color = ft_atoi_base(str + index, BASE);
+		}
+		else
+		{
+			if (res->z > 0)
+				res->color = 0x00FFFF;
+			else
+				res->color = 0xFFCC99;
+		}
 	}
 }
 

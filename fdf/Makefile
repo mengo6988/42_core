@@ -45,7 +45,7 @@ SRCS_DIR = srcs/
 OBJS_DIR = objs/
 
 # SRCS_FIL = main.c hooks.c bresenham.c
-SRCS_FIL = parse.c utils.c main.c bresenham.c projection.c
+SRCS_FIL = parse.c utils.c main.c bresenham.c projection.c gradient.c control.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 

@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 08:05:01 by mho               #+#    #+#             */
-/*   Updated: 2024/01/10 16:48:47 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/15 21:01:29 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	plot_grid(t_data *data)
 {
 	int i;
 
+	project(data);
 	i = -1;
 	while (data->coor_2d[++i])
 	{
@@ -166,6 +167,21 @@ void test_line(t_data *data)
 	bresenhem(data, &a, &a12);
 }
 
+void	print_menu(t_data *data)
+{
+	int y;
+
+	y = 0;
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Tutorial");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Zoom: Scroll");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Rotate X: Drag Mouse Horizontal");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Rotate Y: Drag Mouse Vertical");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Rotate Z: < or >");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Flatten: + or -");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Translation/Move that shit: up, down, left and right arrow keys");
+	mlx_string_put(data->mlx, data->mlx_win, 15, y+=20, 0xFFFFFF, "Quit: Esc");
+}
+
 int render(t_data *data)
 {
 	// ft_printf("dx: %i, dy: %i\n)");
@@ -174,6 +190,7 @@ int render(t_data *data)
 		return (-1);
 	render_background(data->img, 0x0);
 	plot_grid(data);
+	// ft_printf("%i %i %i\n", data->coor_3d[0]->x, data->coor_3d[0]->y, data->coor_3d[0]->z);
 	// test_line(data);
 	// render_rect(&data->img, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100, 100, 100, 0xFF0000});
 	// render_rect(&data->img, (t_rect){0, 0, 100, 100, 0xFFFF00});
@@ -188,6 +205,7 @@ int render(t_data *data)
 	// 		my_mlx_pix_put(data->img, x, y, 0xFFFF00);
 	// }
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->mlx_img, 0, 0);
+	print_menu(data);
 	// ft_printf("rendering\n");
 	return (0);
 }
@@ -231,6 +249,40 @@ int key_hook(int keycode, t_data *data)
 	// exit(0);
 // }
 
+t_cam *cam_init(t_data *data)
+{
+	t_cam *res;
+	int zoomx;
+	int zoomy;
+
+	res = malloc(sizeof(t_cam));
+	zoomx = round((WINDOW_WIDTH / data->width) / 2);
+	zoomy = round((WINDOW_HEIGHT / data->height) / 2);
+	res->z_height = 1;
+	if (zoomx < zoomy)
+		res->zoom = zoomx;
+	else
+		res->zoom = zoomy;
+	res->offset_x = (WINDOW_WIDTH - (data->width)) - 600;
+	res->offset_y = (WINDOW_HEIGHT - (data->height)) - 300;
+	res->x_angle = 0;
+	res->y_angle = 0;
+	res->z_angle = 0;
+	res->iso = 1;
+	return (res);
+}
+
+t_mouse *mouse_init(void)
+{
+	t_mouse *mouse;
+
+	mouse = malloc(sizeof(t_mouse));
+	mouse->is_pressed = 0;
+	mouse->x = 0;
+	mouse->y = 0;
+	return (mouse);
+}
+
 void data_init(t_data *data, char **av)
 {
 	int i;
@@ -246,11 +298,16 @@ void data_init(t_data *data, char **av)
 	data->img->addr = mlx_get_data_addr(data->img->mlx_img, &data->img->bits_per_pixel, &data->img->line_len, &data->img->endian);
 	data->coor_3d = load_coor(av[1], data);
 	data->coor_2d = malloc(sizeof(t_2d *) * ((data->height * data->width) + 1));
+	data->cam = cam_init(data);
+	data->mouse = mouse_init();
 	i = -1;
 	while (++i < data->height * data->width)
+	{
 		data->coor_2d[i] = malloc(sizeof(t_2d));
+		data->coor_3d[i]->x -= data->width / 2;
+		data->coor_3d[i]->y -= data->height / 2;
+	}
 	data->coor_2d[i] = NULL;
-	iso(data);
 }
 
 int main(int ac, char **av)
@@ -268,9 +325,13 @@ int main(int ac, char **av)
 	// 		ft_printf("\n");
 	// }
 	mlx_loop_hook(data.mlx, &render, &data);
-	mlx_hook(data.mlx_win, 02, 0L, &handle_keypress, &data);
+	// mlx_hook(data.mlx_win, 02, 0L, &handle_keypress, &data);
+	controls_hook(&data);
+	mlx_hook(data.mlx_win, EVENT_MOUSEDOWN, 0, mouse_down, &data);
 	mlx_key_hook(data.mlx_win, &key_hook, &data);
 	mlx_loop(data.mlx);
+	// for (int i = 0; i < (data.width * data.height);i++)
+	// 	ft_printf("%i, %i: %x \n", data.coor_2d[i]->x, data.coor_2d[i]->y, data.coor_2d[i]->color);
 }
 
 // int main(void)

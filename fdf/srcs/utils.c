@@ -6,16 +6,16 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 14:15:19 by mho               #+#    #+#             */
-/*   Updated: 2024/01/05 15:38:45 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/10 23:25:28 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-uint32_t	ft_atoi_base(char *str, char *base)
+int	ft_atoi_base(char *str, char *base)
 {
 	int i;
-	uint32_t res;
+	int res;
 	int	j;
 	int base_count;
 
