@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:09:17 by mho               #+#    #+#             */
-/*   Updated: 2023/12/26 07:39:25 by mho              ###   ########.fr       */
+/*   Updated: 2023/12/26 11:58:53 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_here_doc(char *delimiter, int *pipe_fd)
 	{
 		write(STDOUT_FILENO, "here_doc> ", 10);
 		res = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(res, delimiter, ft_strlen(delimiter)) == 0)
+		if (res == NULL || ft_strncmp(res, delimiter,
+				ft_strlen(delimiter)) == 0)
 		{
 			free(res);
 			exit(0);
@@ -115,7 +116,6 @@ int	main(int ac, char **av, char **envp)
 			here_doc(pipex.delimiter);
 		else
 			dup2(pipex.in_fd, STDIN_FILENO);
-
 		while (pipex.cmd_index < (ac - 2))
 		{
 			child_process(&pipex, av, envp);

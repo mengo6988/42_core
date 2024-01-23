@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:42:16 by mho               #+#    #+#             */
-/*   Updated: 2023/12/26 07:24:28 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/17 14:12:50 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**get_paths(char **envp, char *string_compare)
 	paths = NULL;
 	while (envp[++i])
 	{
-		j = -1;
+		j = 0;
 		while (envp[i][j] != '=')
 			j++;
 		if (ft_strncmp(envp[i], string_compare, j) == 0)

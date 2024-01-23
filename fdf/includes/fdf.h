@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 08:05:20 by mho               #+#    #+#             */
-/*   Updated: 2024/01/15 09:10:30 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/16 16:34:16 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WINDOW_HEIGHT 1000
 # define WINDOW_WIDTH 1200
 # define ABS(Value) ((Value < 0) ? -(Value) : (Value))
-# define BASE "0123456789abcdef"
+# define BASE "0123456789ABCDEF"
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
 # define B(a) (a) & 0xFF
@@ -101,22 +101,6 @@ typedef struct s_line
 	int		e2;
 }			t_line;
 
-typedef struct s_rect
-{
-	int		x;
-	int		y;
-	int		width;
-	int		height;
-	int		color;
-}			t_rect;
-
-typedef struct s_mat
-{
-	int		**mat;
-	int		rows;
-	int		cols;
-}			t_mat;
-
 typedef struct s_3d
 {
 	int		x;
@@ -143,23 +127,23 @@ typedef struct s_img
 
 typedef struct s_mouse
 {
-	int x;
-	int y;
-	int is_pressed;
-}		t_mouse;
+	int		x;
+	int		y;
+	int		is_pressed;
+}			t_mouse;
 
 typedef struct s_cam
 {
-	int offset_x;
-	int offset_y;
-	int zoom;
-	int z_height;
-	int x_angle;
-	int y_angle;
-	int z_angle;
-	int iso;
+	int		offset_x;
+	int		offset_y;
+	int		zoom;
+	int		z_height;
+	int		x_angle;
+	int		y_angle;
+	int		z_angle;
+	int		iso;
 
-}		t_cam;
+}			t_cam;
 
 typedef struct s_data
 {
@@ -168,37 +152,60 @@ typedef struct s_data
 	t_img	*img;
 	int		height;
 	int		width;
-	t_cam *cam;
-	t_mouse *mouse;
+	t_cam	*cam;
+	t_mouse	*mouse;
 	t_2d	**coor_2d;
 	t_3d	**coor_3d;
 }			t_data;
 
-void		bresenhem(t_data *data, t_2d *a, t_2d *b);
-void		bresenhem_high(t_data *data, t_2d *p1, t_2d *p2);
-void		bresenhem_low(t_data *data, t_2d *p1, t_2d *p2);
+// bresenham
 void		plot(int x, int y, int color, t_data *data);
-int			get_color(int start, int end, int length, int current);
-// void	bs(t_data *data, t_2d *a, t_2d *b);
-// t_line *init_line(t_2d *a, t_2d *b);
-// int compare(int a, int b);
-// void bresenham(t_data *data, t_2d *p1, t_2d *p2);
-// void	draw_line(t_data *fdf, t_2d *f, t_2d *s );
+void		bresenhem_low(t_data *data, t_2d *p1, t_2d *p2);
+void		bresenhem_high(t_data *data, t_2d *p1, t_2d *p2);
+void		bresenhem(t_data *data, t_2d *a, t_2d *b);
 
-int			check_valid_args(char *map);
+// controls
+int			mouse_down(int key, int x, int y, void *param);
+int			mouse_up(int key, int x, int y, void *param);
+int			mouse_move(int x, int y, void *param);
+void		controls_hook(t_data *data);
+int			key_press(int key, void *param);
+
+// control_utils
+int			on_destroy(void *param);
+void		move_image(int key, t_data *data);
+void		z_rotation(int key, t_data *data);
+void		change_tallness(int key, t_data *data);
+
+// gradient
+int			get_color(int start, int end, int length, int current);
+
+// main
+t_cam		*cam_init(t_data *data);
+t_mouse		*mouse_init(void);
+void		data_init(t_data *data, char **av);
+void		adjust_coor(t_data *data);
+
+// mlx_stuff
+void		my_mlx_pix_put(t_img *img, int x, int y, int color);
+void		render_background(t_img *img, int color);
+void		print_menu(t_data *data);
+int			render(t_data *data);
+void		plot_grid(t_data *data);
+
+// parse
 char		*read_file_fdf(char *filename);
 char		***load_map(char *filename);
 t_3d		**init_coor(char ***map);
 void		str_to_coor(char *str, int i, int j, t_3d *res);
-void		free_shit(char ***map);
 t_3d		**load_coor(char *filename, t_data *data);
 
-// void			my_mlx_pix_put(t_img *img, int x, int y, int color);
-int			mouse_event(int keycode, int x, int y, t_data *param);
-
 // utils
-void		ft_error(char *err);
 int			ft_atoi_base(char *str, char *base);
+void		ft_error(char *err);
+void		free_all(t_data *data);
+void		free_shit(char ***map);
+int			check_valid_args(char *map);
 
 // projection
 void		rotate_z(int *x, int *y, int *z, double degree);
@@ -207,19 +214,10 @@ void		rotate_x(int *x, int *y, int *z, double degree);
 void		iso(int *x, int *y, int *z);
 void		project(t_data *data);
 
-//controls
-int mouse_down(int key, int x, int y, void *param);
-int mouse_up(int key, int x, int y, void *param);
-int mouse_move(int x, int y, void *param);
-void	controls_hook(t_data *data);
-
-// extra?
-int			handle_keypress(int keysym, t_data *data);
-void		my_mlx_pix_put(t_img *img, int x, int y, int color);
-void		render_background(t_img *img, int color);
-int			render_rect(t_img *img, t_rect rect);
-void		plot_grid(t_data *data);
-int			key_hook(int keycode, t_data *data);
-int			render(t_data *data);
-void		data_init(t_data *data, char **av);
+// // extra?
+// void		my_mlx_pix_put(t_img *img, int x, int y, int color);
+// void		render_background(t_img *img, int color);
+// void		plot_grid(t_data *data);
+// int			render(t_data *data);
+// void		data_init(t_data *data, char **av);
 #endif
