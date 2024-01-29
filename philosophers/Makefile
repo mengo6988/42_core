@@ -40,8 +40,6 @@ NAME = philo
 
 BONUS = checker
 
-LIBFT = libft.a
-
 CC = gcc
 
 SRCS_DIR = srcs/
@@ -52,7 +50,7 @@ BONUS_DIR = srcs/
 
 BOBJS_DIR = bobjs/
 
-SRCS_FIL =
+SRCS_FIL = main.c utils.c init.c routine.c thread.c
 
 BONUS_FIL =
 
@@ -62,7 +60,7 @@ BONUSS := $(addprefix $(BONUS_DIR), $(BONUS_FIL))
 
 HEADER = ./includes/
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3
 
 OPTION = -I $(HEADER)
 
@@ -70,9 +68,9 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FIL:.c=.o))
 
 BOBJS = $(addprefix $(BOBJS_DIR), $(BONUS_FIL:.c=.o))
 
-all: $(OBJS_DIR) $(NAME) builder complete
+all: $(OBJS_DIR) $(NAME)
 
-bonus: builder complete
+bonus:
 	@make $(BONUS)
 
 $(BOBJS_DIR):

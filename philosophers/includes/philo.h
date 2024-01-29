@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 08:28:25 by mho               #+#    #+#             */
-/*   Updated: 2024/01/24 14:01:11 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/29 09:34:43 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ typedef struct s_philo
 	pthread_mutex_t *left_chopstick;
 	int number_of_philos;
 	int number_times_to_eat;
+	int *dead_flag;
+	pthread_mutex_t *dead;
+	pthread_mutex_t *meal;
+	pthread_mutex_t *write;
 }		t_philo;
 
 typedef struct s_data
@@ -46,8 +50,47 @@ typedef struct s_data
 	pthread_mutex_t meal;
 	pthread_mutex_t write;
 	t_philo *philos;
-	pthread_mutex_t *chopticks;
+	pthread_mutex_t *chopsticks;
 	int	dead_flag;
 }	t_data;
 
+
+//int ft_atoi(char *s);
+//size_t get_current_time(void);
+//int	ft_usleep(size_t duration);
+//void	data_init(t_data *data, char **av);
+//void	philo_init(t_philo *philo, t_data *data, int ac, char **av);
+//void	print_philo(t_philo *philo, char *msg);
+//void	*routine(void *data);
+
+//main
+int check_args(char **av);
+void	test_philos(t_data *data);
+
+//init
+void	philo_mutex_init(t_philo *philo, t_data *data);
+void	philo_init(t_philo *philo, t_data *data, int ac, char **av);
+void	data_init(t_data *data, char **av);
+
+//routine
+void	*routine(void *data);
+void	sleeping(t_philo *philo);
+void	think(t_philo *philo);
+void	eat(t_philo *philo);
+int	dead(t_philo *philo);
+
+//thread
+void	thread_init(t_data *data);
+void	*monitor(void *ptr);
+int	are_they_dead(t_philo *philo);
+int	are_they_full(t_philo *philo);
+
+//utils
+int ft_atoi(char *s);
+size_t get_current_time(void);
+int	ft_usleep(size_t duration);
+void ft_exit(t_data *data, char *error_message);
+void	print_philo(t_philo *philo, char *msg);
+
+void ft_log(int full, t_philo *philo);
 #endif
