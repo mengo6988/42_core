@@ -6,7 +6,7 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 09:09:49 by mho               #+#    #+#             */
-/*   Updated: 2024/01/29 10:03:50 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/29 13:33:25 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	*routine(void *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	if (philo->id % 2 >= 0)
-		ft_usleep(1);
+	if (philo->id % 2 == 0)
+		ft_usleep(5);
 	while (dead(philo) == 0)
 	{
 		eat(philo);
@@ -33,10 +33,12 @@ void	sleeping(t_philo *philo)
 	print_philo(philo, "is sleeping");
 	ft_usleep(philo->time_to_sleep);
 }
+
 void	think(t_philo *philo)
 {
 	print_philo(philo, "is thinking");
 }
+
 void	eat(t_philo *philo)
 {
 	if (philo->number_of_philos == 1)
@@ -62,7 +64,7 @@ void	eat(t_philo *philo)
 
 int	dead(t_philo *philo)
 {
-	int res;
+	int	res;
 
 	pthread_mutex_lock(philo->dead);
 	if (*philo->dead_flag == 1)

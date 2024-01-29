@@ -6,17 +6,17 @@
 /*   By: mho <mho@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:14:34 by mho               #+#    #+#             */
-/*   Updated: 2024/01/28 14:51:11 by mho              ###   ########.fr       */
+/*   Updated: 2024/01/29 13:27:40 by mho              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_atoi(char *s)
+int	ft_atoi(char *s)
 {
-	int i;
-	int pos;
-	int res;
+	int	i;
+	int	pos;
+	int	res;
 
 	i = 0;
 	pos = 1;
@@ -36,9 +36,9 @@ int ft_atoi(char *s)
 	return (res);
 }
 
-size_t get_current_time(void)
+size_t	get_current_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) != 0)
 		printf("time error\n");
@@ -47,7 +47,7 @@ size_t get_current_time(void)
 
 int	ft_usleep(size_t duration)
 {
-	size_t start;
+	size_t	start;
 
 	start = get_current_time();
 	while (get_current_time() - start < duration)
@@ -55,11 +55,12 @@ int	ft_usleep(size_t duration)
 	return (0);
 }
 
-void ft_exit(t_data *data, char *error_message)
+void	ft_exit(t_data *data, char *error_message)
 {
-	int i;
+	int	i;
 
-	printf("%s", error_message);
+	if (error_message)
+		printf("%s", error_message);
 	i = -1;
 	while (++i < data->philos[0].number_of_philos)
 		pthread_mutex_destroy(&data->chopsticks[i]);
@@ -72,7 +73,7 @@ void ft_exit(t_data *data, char *error_message)
 
 void	print_philo(t_philo *philo, char *msg)
 {
-	size_t current_time;
+	size_t	current_time;
 
 	pthread_mutex_lock(philo->write);
 	current_time = get_current_time() - philo->start_time;

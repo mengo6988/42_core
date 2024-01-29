@@ -60,7 +60,7 @@ BONUSS := $(addprefix $(BONUS_DIR), $(BONUS_FIL))
 
 HEADER = ./includes/
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g3
+CFLAGS = -Wall -Wextra -Werror
 
 OPTION = -I $(HEADER)
 
