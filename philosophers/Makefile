@@ -38,7 +38,7 @@ ART = ${ART1} ${ART2}
 
 NAME = philo
 
-BONUS = checker
+BONUS = philo_bonus
 
 CC = gcc
 
@@ -46,13 +46,13 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-BONUS_DIR = srcs/
+BONUS_DIR = bonus_srcs/
 
 BOBJS_DIR = bobjs/
 
 SRCS_FIL = main.c utils.c init.c routine.c thread.c
 
-BONUS_FIL =
+BONUS_FIL = init.c utils.c thread.c routine.c main.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
@@ -70,8 +70,7 @@ BOBJS = $(addprefix $(BOBJS_DIR), $(BONUS_FIL:.c=.o))
 
 all: $(OBJS_DIR) $(NAME)
 
-bonus:
-	@make $(BONUS)
+bonus: $(BONUS)
 
 $(BOBJS_DIR):
 	@mkdir -p $(BOBJS_DIR)
