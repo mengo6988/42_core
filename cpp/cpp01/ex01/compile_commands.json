@@ -1,0 +1,56 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c++98",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "objs/Zombie.o",
+      "srcs/Zombie.cpp"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01",
+    "file": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01/srcs/Zombie.cpp",
+    "output": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01/objs/Zombie.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c++98",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "objs/main.o",
+      "srcs/main.cpp"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01",
+    "file": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01/srcs/main.cpp",
+    "output": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01/objs/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c++98",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "objs/zombieHorde.o",
+      "srcs/zombieHorde.cpp"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01",
+    "file": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01/srcs/zombieHorde.cpp",
+    "output": "/Users/menghongho/Downloads/42_core/cpp/cpp01/ex01/objs/zombieHorde.o"
+  }
+]
