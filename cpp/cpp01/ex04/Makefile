@@ -1,5 +1,4 @@
-NAME = unnecessary_violence
-
+NAME = sed_is_for_loser
 
 CC = c++
 
@@ -7,7 +6,7 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-SRCS_FIL = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
+SRCS_FIL = main.cpp 
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 

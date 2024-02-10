@@ -37,21 +37,21 @@ ART2 = \n \
 
 ART = ${ART1} ${ART2}
 
-NAME = megaphone
+NAME = accounts
 
 # BONUS = philo_bonus
 
-CC = gcc
+CC = c++
 
 SRCS_DIR = srcs/
 
-# OBJS_DIR = objs/
+OBJS_DIR = objs/
 
 # BONUS_DIR = bonus_srcs/
 
-BOBJS_DIR = bobjs/
+# BOBJS_DIR = bobjs/
 
-SRCS_FIL = 
+SRCS_FIL = Account.cpp tests.cpp
 
 # BONUS_FIL = init.c utils.c thread.c routine.c main.c
 
@@ -61,11 +61,11 @@ SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
 HEADER = ./includes/
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 OPTION = -I $(HEADER)
 
-OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FIL:.c=.o))
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FIL:.cpp=.o))
 
 # BOBJS = $(addprefix $(BOBJS_DIR), $(BONUS_FIL:.c=.o))
 
@@ -84,11 +84,9 @@ $(OBJS_DIR):
 # $(BOBJS_DIR)%.o: $(BONUS_DIR)%.c | $(BOBJS_DIR)
 # 	@$(CC) $(CFLAGS) $(OPTION) -c $< -o $@
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.cpp | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) ${OPTION} -c $< -o $@
 
-# $(NAME): $(OBJS) $(LIBFT)
-# 	@ar -rcs $(NAME) $(OBJS)
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
