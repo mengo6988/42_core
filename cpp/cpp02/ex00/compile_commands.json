@@ -1,0 +1,38 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c++98",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "objs/main.o",
+      "srcs/main.cpp"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/cpp/cpp02/ex00",
+    "file": "/Users/menghongho/Downloads/42_core/cpp/cpp02/ex00/srcs/main.cpp",
+    "output": "/Users/menghongho/Downloads/42_core/cpp/cpp02/ex00/objs/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-std=c++98",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "objs/Fixed.o",
+      "srcs/Fixed.cpp"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/cpp/cpp02/ex00",
+    "file": "/Users/menghongho/Downloads/42_core/cpp/cpp02/ex00/srcs/Fixed.cpp",
+    "output": "/Users/menghongho/Downloads/42_core/cpp/cpp02/ex00/objs/Fixed.o"
+  }
+]
