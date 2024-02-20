@@ -13,7 +13,8 @@ public:
   Brain();
   ~Brain();
 
-  void makeSound() const;
+  Brain(const Brain &other);
+  Brain &operator=(const Brain &other);
 };
 
 #endif

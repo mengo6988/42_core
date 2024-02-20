@@ -7,7 +7,9 @@
 #include <string>
 
 class Cat : public Animal {
-protected:
+private:
+  Brain *brain;
+
 public:
   Cat();
   ~Cat();
