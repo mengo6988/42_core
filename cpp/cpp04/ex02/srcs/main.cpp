@@ -49,8 +49,10 @@ int main(void) {
   std::cout << "dog deep copy proof ----------------------------" << std::endl;
   Dog dog0;
   Dog dog1 = dog0;
-  std::cout << "Dog0: " << &dog0 << " | Dog1: " << &dog1 << std::endl;
-  std::cout << "Dog0 brain: " << dog0.getBrain() << " | Dog1: brain"
+  std::cout << "Dog0: " << &dog0 << " | Dog1 : " << &dog1 << std::endl;
+  std::cout << " Dog0 brain: " << dog0.getBrain() << " | Dog1: brain"
             << dog1.getBrain() << std::endl;
+
+  // Animal ani;
   return 0;
 }
