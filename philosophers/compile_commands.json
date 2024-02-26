@@ -1,0 +1,87 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "bobjs/init.o",
+      "bonus_srcs/init.c"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/philosophers",
+    "file": "/Users/menghongho/Downloads/42_core/philosophers/bonus_srcs/init.c",
+    "output": "/Users/menghongho/Downloads/42_core/philosophers/bobjs/init.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "bobjs/utils.o",
+      "bonus_srcs/utils.c"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/philosophers",
+    "file": "/Users/menghongho/Downloads/42_core/philosophers/bonus_srcs/utils.c",
+    "output": "/Users/menghongho/Downloads/42_core/philosophers/bobjs/utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "bobjs/thread.o",
+      "bonus_srcs/thread.c"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/philosophers",
+    "file": "/Users/menghongho/Downloads/42_core/philosophers/bonus_srcs/thread.c",
+    "output": "/Users/menghongho/Downloads/42_core/philosophers/bobjs/thread.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "bobjs/routine.o",
+      "bonus_srcs/routine.c"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/philosophers",
+    "file": "/Users/menghongho/Downloads/42_core/philosophers/bonus_srcs/routine.c",
+    "output": "/Users/menghongho/Downloads/42_core/philosophers/bobjs/routine.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "./includes/",
+      "-c",
+      "-o",
+      "bobjs/main.o",
+      "bonus_srcs/main.c"
+    ],
+    "directory": "/Users/menghongho/Downloads/42_core/philosophers",
+    "file": "/Users/menghongho/Downloads/42_core/philosophers/bonus_srcs/main.c",
+    "output": "/Users/menghongho/Downloads/42_core/philosophers/bobjs/main.o"
+  }
+]

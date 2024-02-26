@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void *routine(void *data) {
   t_philo *philo;
+	pthread_t monitor_thread;
 
   philo = (t_philo *)data;
-  if (philo->id % 2 == 0)
-    ft_usleep(5);
-  while (dead(philo) == 0) {
+  pthread_create(&monitor_thread, NULL, &monitor, philo);
+  while (1) {
     eat(philo);
     sleeping(philo);
     think(philo);
@@ -38,30 +38,19 @@ void eat(t_philo *philo) {
     ft_usleep(philo->time_to_die);
     return;
   }
-  pthread_mutex_lock(philo->left_chopstick);
+  sem_wait(philo->chopsticks);
   print_philo(philo, "has taken a fork");
-  pthread_mutex_lock(philo->right_chopstick);
+  sem_wait(philo->chopsticks);
   print_philo(philo, "has taken a fork");
   philo->eating = 1;
-  pthread_mutex_lock(philo->meal);
+  sem_wait(philo->meal);
   print_philo(philo, "is eating");
   philo->last_meal = get_current_time();
   philo->meals_eaten++;
-  pthread_mutex_unlock(philo->meal);
+  sem_post(philo->meal);
   ft_usleep(philo->time_to_eat);
   philo->eating = 0;
-  pthread_mutex_unlock(philo->left_chopstick);
-  pthread_mutex_unlock(philo->right_chopstick);
+  sem_post(philo->chopsticks);
+  sem_post(philo->chopsticks);
 }
 
-int dead(t_philo *philo) {
-  int res;
-
-  pthread_mutex_lock(philo->dead);
-  if (*philo->dead_flag == 1)
-    res = 1;
-  else
-    res = 0;
-  pthread_mutex_unlock(philo->dead);
-  return (res);
-}
