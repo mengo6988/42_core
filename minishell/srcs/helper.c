@@ -1,8 +1,10 @@
 #include "minishell.h"
+#include <stdio.h>
 
 void *ft_malloc(size_t size) {
   void *res;
 
+  // printf("size = %zu\n", size);
   res = malloc(size);
   if (!res) {
     ft_putstr_fd("Malloc fail\n", 2);
@@ -15,15 +17,16 @@ char *ft_strndup(const char *s, int len) {
   char *res;
   int i;
 
-  res = ft_calloc(sizeof(char), len + 1);
+  res = ft_calloc(sizeof(char), (len + 1));
   if (!res) {
-    ft_putstr_fd("Malloc fail\n", 2);
+    ft_putstr_fd("Malloc fail strndup\n", 2);
     exit(1);
   }
   i = -1;
-  while (++i < len)
+  while (++i < len && s[i])
     res[i] = s[i];
-  return res;
+  res[i] = '\0';
+  return (res);
 }
 
 int ft_strcmp(const char *s1, const char *s2) {

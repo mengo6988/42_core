@@ -24,7 +24,17 @@ void tokenize(t_ms *ms);
 char **ms_split(char *s);
 
 // TOKEN_UTILS
-t_token *token_new(char *s);
+t_token *token_new(void);
 void token_add_back(t_token *head, t_token *to_add);
+void token_delete(t_token *head, int i);
+void token_deleteall(t_token *head);
+
+// TEST
+
+void tk_redir_in(t_ms *ms, int *i);
+void tk_redir_out(t_ms *ms, int *i);
+void tk_pipe(t_ms *ms, int *i);
+void tk_quotes(t_ms *ms, int *i);
+void tk_word(t_ms *ms, int *i);
 
 #endif

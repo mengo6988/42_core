@@ -6,14 +6,14 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-SRCS_FIL = test.c helper.c env.c history.c tokenize.c
+SRCS_FIL = test.c helper.c env.c history.c  token_test.c token_utils.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 
 HEADER = ./includes/
 
 # CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -fsanitize=address -g3
 
 INCLUDES = -I$(HEADER) -I$(LIBFT_DIR) 
 

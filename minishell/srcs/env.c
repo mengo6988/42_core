@@ -34,9 +34,9 @@ void process_env(t_ms *ms) {
     while (env->raw[i] && env->raw[i] != '=')
       i++;
     env->key = ft_strndup(env->raw, i);
-    printf("keyyy %s\n", env->key);
+    // printf("keyyy %s\n", env->key);
     env->value = ft_strdup(env->raw + i + 1);
-    printf("rawwww %s\n", env->raw);
+    // printf("rawwww %s\n", env->raw);
     env = env->next;
   }
 }
