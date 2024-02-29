@@ -39,3 +39,17 @@ int ft_strcmp(const char *s1, const char *s2) {
   }
   return (0);
 }
+
+char *ft_strncpy(char *dst, char *src, size_t len) {
+  size_t i;
+
+  if (len <= 0)
+    return dst;
+  i = -1;
+  while (src[++i] && i < len) {
+    dst[i] = src[i];
+  }
+  while (i < len)
+    dst[i++] = 0;
+  return (dst);
+}

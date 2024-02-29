@@ -7,14 +7,14 @@ void get_env(char **env, t_ms *ms) {
 
   i = 0;
   res = ft_malloc(sizeof(t_env));
-  res->raw = env[0];
+  res->raw = ft_strdup(env[0]);
   res->next = NULL;
   res->key = NULL;
   res->value = NULL;
   ms->env = res;
   while (env[++i]) {
     new = ft_malloc(sizeof(t_env));
-    new->raw = env[i];
+    new->raw = ft_strdup(env[i]);
     new->next = NULL;
     new->key = NULL;
     new->value = NULL;
@@ -39,6 +39,25 @@ void process_env(t_ms *ms) {
     // printf("rawwww %s\n", env->raw);
     env = env->next;
   }
+}
+
+void export(t_ms *ms, char *s) {
+  int i;
+  t_env *new;
+  t_env *current;
+
+  i = 0;
+  current = ms->env;
+  new = ft_malloc(sizeof(t_env));
+  new->raw = ft_strdup(s);
+  while (s[i] && s[i] != '=')
+    i++;
+  new->key = ft_strndup(new->raw, i);
+  new->next = NULL;
+  new->value = ft_strdup(new->raw + i + 1);
+  while (current->next)
+    current = current->next;
+  current->next = new;
 }
 
 void print_env(t_ms *ms) {

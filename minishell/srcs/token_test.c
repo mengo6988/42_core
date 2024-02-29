@@ -19,6 +19,7 @@ void tokenize(t_ms *ms) {
     else
       tk_word(ms, &i);
   }
+  // TODO: LEXICAL ANALYSIS
 }
 
 void tk_redir_in(t_ms *ms, int *i) {
@@ -26,15 +27,18 @@ void tk_redir_in(t_ms *ms, int *i) {
 
   new = token_new();
   if (ms->input[*i + 1] == '<') {
-    new->type = HEREDOC;
+    new->type = REDIRECTION;
     new->raw = ft_strndup(ms->input + *i, 2);
     *i += 2;
+    new->rdr_type = HEREDOC;
   } else {
-    new->type = RE_IN;
+    new->type = REDIRECTION;
     new->raw = ft_strndup(ms->input + *i, 1);
+    new->rdr_type = IN;
     (*i)++;
   }
-  token_add_back(ms->token, new);
+  new->is_quotes = FALSE;
+  token_add_back(&ms->token, new);
 }
 
 void tk_redir_out(t_ms *ms, int *i) {
@@ -42,15 +46,18 @@ void tk_redir_out(t_ms *ms, int *i) {
 
   new = token_new();
   if (ms->input[*i + 1] == '>') {
-    new->type = RE_APP;
+    new->type = REDIRECTION;
     new->raw = ft_strndup(ms->input + *i, 2);
+    new->rdr_type = APPEND;
     (*i) += 2;
   } else {
-    new->type = RE_OUT;
+    new->type = REDIRECTION;
     new->raw = ft_strndup(ms->input + *i, 1);
+    new->rdr_type = OUT;
     (*i)++;
   }
-  token_add_back(ms->token, new);
+  new->is_quotes = FALSE;
+  token_add_back(&ms->token, new);
 }
 
 void tk_pipe(t_ms *ms, int *i) {
@@ -59,7 +66,9 @@ void tk_pipe(t_ms *ms, int *i) {
   new = token_new();
   new->type = PIPE;
   new->raw = ft_strndup(ms->input + *i, 1);
-  token_add_back(ms->token, new);
+  new->rdr_type = 0;
+  new->is_quotes = FALSE;
+  token_add_back(&ms->token, new);
   (*i)++;
 }
 
@@ -68,17 +77,19 @@ void tk_quotes(t_ms *ms, int *i) {
   char c;
   int j;
 
-  c = ms->input[*i];
   new = token_new();
-  j = 0;
+  c = ms->input[*i];
+  j = 1;
   while (ms->input[*i + j] && ms->input[*i + j] != c)
     j++;
-  new->raw = ft_strndup(ms->input + *i, j);
+  new->raw = ft_strndup(ms->input + *i, ++j);
   if (c == '\'')
     new->type = S_QUOTE;
   else
     new->type = D_QUOTE;
-  token_add_back(ms->token, new);
+  new->rdr_type = 0;
+  new->is_quotes = TRUE;
+  token_add_back(&ms->token, new);
   (*i) += j;
 }
 
@@ -94,6 +105,9 @@ void tk_word(t_ms *ms, int *i) {
          ms->input[*i + j] != '\'')
     j++;
   new->raw = ft_strndup(ms->input + *i, j);
-  token_add_back(ms->token, new);
+  new->type = CMD;
+  new->rdr_type = 0;
+  new->is_quotes = FALSE;
+  token_add_back(&ms->token, new);
   (*i) += j;
 }
