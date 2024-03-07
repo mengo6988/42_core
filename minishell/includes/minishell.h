@@ -31,6 +31,7 @@ void *ft_malloc(size_t size);
 char *ft_strndup(const char *s, int len);
 int ft_strcmp(const char *s1, const char *s2);
 char *ft_strncpy(char *dst, char *src, size_t len);
+char *add_quotes(char *s);
 
 // HISTORY
 void ms_addhistory(t_ms *ms);
@@ -42,11 +43,12 @@ char **ms_split(char *s);
 // TOKEN_UTILS
 t_token *token_new(void);
 void token_add_back(t_token **head, t_token *to_add);
-void token_delete(t_token *head, int i);
+void token_delete(t_token *head);
 void token_deleteall(t_token **head);
 
 // DOLLAR UTILS
 void expand_dollars(t_ms *ms, t_token **head);
+char *add_quotes(char *s);
 char *get_dollar_key(char *s);
 char *replace_dollar(char *s, char *to_replace, char *replacement);
 
@@ -66,6 +68,13 @@ void tk_word(t_ms *ms, int *i);
 // token_class
 void token_rmquotes(t_ms *ms);
 void token_settype(t_ms *ms);
+void set_builtin(t_ms *ms);
+void combine_tokens(t_ms *ms);
+void add_args_to_cmd(t_ms *ms, t_token **token);
+
+// init
+void ms_init(t_ms *ms, char **env);
+void func_list_init(t_ms *ms);
 
 void print_token(t_token *head);
 #endif

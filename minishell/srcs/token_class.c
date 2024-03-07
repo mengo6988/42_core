@@ -48,8 +48,71 @@ void token_settype(t_ms *ms) {
 // any CMD after redirection is ARGS for the redirection
 // anything after pipe is a command
 
+void set_builtin(t_ms *ms) {
+  t_token *current;
+  int i;
+
+  current = ms->token;
+  while (current) {
+    if (current->type != CMD)
+      current->builtin = NONE;
+    i = 0;
+    while (ms->function_list[i] &&
+           ft_strcmp(current->raw, ms->function_list[i]))
+      i++;
+    current->builtin = i;
+    current = current->next;
+  }
+}
+
 void combine_tokens(t_ms *ms) {
   // TODO: combine the args and put them into their respective
   // cmd/pipes/redirect
   // FIX:THE STUPID QUOTES PUT BACK, ONLY IF COMMAND ITSELF IS ECHO
+  t_token *current;
+  t_token *temp;
+
+  current = ms->token;
+  while (current) {
+    if (current->type != ARGS)
+      add_args_to_cmd(ms, &current);
+    current = current->next;
+  }
+  current = ms->token;
+  while (current) {
+    if (current->type == ARGS) {
+      temp = current;
+      current = current->next;
+      token_delete(temp);
+    } else
+      current = current->next;
+  }
+}
+
+void add_args_to_cmd(t_ms *ms, t_token **token) {
+  t_token *current;
+  int i;
+  char *s;
+  int len;
+
+  current = (*token)->next;
+  len = 0;
+  while (current && current->next && current->type == ARGS) {
+    current = current->next;
+    len++;
+  }
+  (*token)->args = ft_malloc(sizeof(char *) * (len-- + 2));
+  i = -1;
+  current = (*token);
+  ft_printf("len = %i\n", len);
+  while (++i < len) {
+    if ((*token)->builtin == ECHO && current->is_quotes == TRUE)
+      s = add_quotes(current->raw);
+    else
+      s = ft_strdup(current->raw);
+    (*token)->args[i] = s;
+    current = current->next;
+  }
+  ft_printf("i at end = %i\n", i);
+  (*token)->args[i] = NULL;
 }

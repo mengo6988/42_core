@@ -38,6 +38,7 @@ void tk_redir_in(t_ms *ms, int *i) {
     (*i)++;
   }
   new->is_quotes = FALSE;
+  new->args = NULL;
   token_add_back(&ms->token, new);
 }
 
@@ -56,6 +57,7 @@ void tk_redir_out(t_ms *ms, int *i) {
     new->rdr_type = OUT;
     (*i)++;
   }
+  new->args = NULL;
   new->is_quotes = FALSE;
   token_add_back(&ms->token, new);
 }
@@ -68,6 +70,7 @@ void tk_pipe(t_ms *ms, int *i) {
   new->raw = ft_strndup(ms->input + *i, 1);
   new->rdr_type = 0;
   new->is_quotes = FALSE;
+  new->args = NULL;
   token_add_back(&ms->token, new);
   (*i)++;
 }
@@ -89,6 +92,7 @@ void tk_quotes(t_ms *ms, int *i) {
     new->type = D_QUOTE;
   new->rdr_type = 0;
   new->is_quotes = TRUE;
+  new->args = NULL;
   token_add_back(&ms->token, new);
   (*i) += j;
 }
@@ -108,6 +112,7 @@ void tk_word(t_ms *ms, int *i) {
   new->type = CMD;
   new->rdr_type = 0;
   new->is_quotes = FALSE;
+  new->args = NULL;
   token_add_back(&ms->token, new);
   (*i) += j;
 }

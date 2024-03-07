@@ -36,7 +36,7 @@ typedef struct s_token {
   t_rdr rdr_type;
   t_bool is_quotes;
   //  int *pipe;
-  //  char **args;
+  char **args;
   //  char *infile;
   //  char *outfile;
   // int out_fd;
@@ -73,7 +73,7 @@ typedef struct s_ms {
   t_bif function_ptr;
   t_token *token;
   int latest_err;
-  int exit;
+  t_bool exit;
 
 } t_ms;
 

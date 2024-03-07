@@ -15,10 +15,14 @@ void print_token(t_token *head) {
   i = 0;
   while (current) {
     ft_printf("---------------TOKEN------------\n");
-    ft_printf("%i \n", i);
+    ft_printf("%i \n", current->i);
     ft_printf("raw = %s\n", current->raw);
     ft_printf("type = %s\n", list[current->type]);
     ft_printf("rdr = %s\n", rdr[current->rdr_type]);
+    ft_printf("args = ");
+    for (int i = 0; current->args[i]; i++)
+      ft_printf("%s, ", current->args[i]);
+    ft_printf("\n");
     ft_printf("--------------------------------\n");
     i++;
     current = current->next;
@@ -32,6 +36,7 @@ int main(int ac, char **av, char **env) {
   (void)ac;
   (void)av;
   env_init(env, &ms);
+  ms_init(&ms, env);
   // print_env(&ms);
   ms.token = NULL;
   // for (int i = 0; ms.env[i]; i++)
@@ -43,6 +48,8 @@ int main(int ac, char **av, char **env) {
     expand_dollars(&ms, &(ms.token));
     token_rmquotes(&ms);
     token_settype(&ms);
+    set_builtin(&ms);
+    combine_tokens(&ms);
     print_token(ms.token);
     token_deleteall(&ms.token);
     free(ms.input);

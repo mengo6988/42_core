@@ -1,4 +1,6 @@
+#include "libft.h"
 #include "minishell.h"
+#include <stdarg.h>
 #include <stdio.h>
 
 void *ft_malloc(size_t size) {
@@ -52,4 +54,14 @@ char *ft_strncpy(char *dst, char *src, size_t len) {
   while (i < len)
     dst[i++] = 0;
   return (dst);
+}
+
+char *add_quotes(char *s) {
+  char *res;
+
+  res = ft_calloc(sizeof(char), ft_strlen(s) + 2);
+  res[0] = '"';
+  res[ft_strlen(s) + 1] = '"';
+  res = ft_strncpy(res + 1, s, ft_strlen(s));
+  return (res);
 }

@@ -10,6 +10,7 @@ void expand_dollars(t_ms *ms, t_token **head) {
 
   current = *head;
   while (current) {
+    // printf("running: %s\n", current->raw);
     key = get_dollar_key(current->raw);
     while (key != NULL) {
       value = get_env(ms, key);

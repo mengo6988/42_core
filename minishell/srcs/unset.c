@@ -6,7 +6,7 @@ int unset(t_ms *ms, char **args) {
   char **new_env;
 
   i = find_key(ms->env, args[1]);
-  if (i = -1)
+  if (i == -1)
     return (0);
   j = 0;
   while (ms->env[j])
