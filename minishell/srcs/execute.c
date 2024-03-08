@@ -7,4 +7,4 @@
 // heredocs will run first too... and also everything before infile/heredoc will
 // not be run at all
 
-// int ft_execve(t_ms *ms, char **args)
+// int ft_execve(t_ms *ms, char **args) {}

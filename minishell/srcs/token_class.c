@@ -75,7 +75,7 @@ void combine_tokens(t_ms *ms) {
   current = ms->token;
   while (current) {
     if (current->type != ARGS)
-      add_args_to_cmd(ms, &current);
+      add_args_to_cmd(&current);
     current = current->next;
   }
   current = ms->token;
@@ -89,30 +89,27 @@ void combine_tokens(t_ms *ms) {
   }
 }
 
-void add_args_to_cmd(t_ms *ms, t_token **token) {
+void add_args_to_cmd(t_token **token) {
   t_token *current;
   int i;
-  char *s;
   int len;
 
   current = (*token)->next;
-  len = 0;
-  while (current && current->next && current->type == ARGS) {
+  len = 1;
+  while (current && current->type == ARGS) {
     current = current->next;
     len++;
   }
-  (*token)->args = ft_malloc(sizeof(char *) * (len-- + 2));
+  (*token)->args = ft_malloc(sizeof(char *) * (len + 2));
   i = -1;
   current = (*token);
-  ft_printf("len = %i\n", len);
   while (++i < len) {
     if ((*token)->builtin == ECHO && current->is_quotes == TRUE)
-      s = add_quotes(current->raw);
+      (*token)->args[i] = add_quotes(current->raw);
     else
-      s = ft_strdup(current->raw);
-    (*token)->args[i] = s;
+      (*token)->args[i] = ft_strdup(current->raw);
+    // (*token)->args[i] = s;
     current = current->next;
   }
-  ft_printf("i at end = %i\n", i);
   (*token)->args[i] = NULL;
 }

@@ -1,27 +1,22 @@
 #include "libft.h"
+#include "mini_structs.h"
 #include "minishell.h"
 
-void expand_dollars(t_ms *ms, t_token **head) {
-  t_token *current;
+void expand_dollars(t_ms *ms, char **s) {
   char *key;
   char *value;
   char *res;
   char *temp;
 
-  current = *head;
-  while (current) {
-    // printf("running: %s\n", current->raw);
-    key = get_dollar_key(current->raw);
-    while (key != NULL) {
-      value = get_env(ms, key);
-      res = replace_dollar(current->raw, key, value);
-      temp = current->raw;
-      current->raw = res;
-      free(temp);
-      temp = NULL;
-      key = get_dollar_key(current->raw);
-    }
-    current = current->next;
+  key = get_dollar_key(*s);
+  while (key != NULL) {
+    value = get_env(ms, key);
+    res = replace_dollar(*s, key, value);
+    temp = *s;
+    *s = res;
+    free(temp);
+    temp = NULL;
+    key = get_dollar_key(*s);
   }
 }
 
@@ -35,15 +30,34 @@ char *get_dollar_key(char *s) {
   int j;
 
   i = 0;
-  while (s[i] && s[i] != '$')
+  while (s[i] && s[i] != '$') {
     i++;
+  }
   if (s[i++] != '$')
     return NULL;
   j = 0;
+  if (s[i + j] == '?')
+    return (ft_strdup("?"));
   while (s[i + j] && s[i + j] != ' ' && s[i + j] != '|' && s[i + j] != '<' &&
-         s[i + j] != '>' && s[i + j] != '"' && s[i + j] != '\'')
+         s[i + j] != '>' && s[i + j] != '"' && s[i + j] != '\'' &&
+         s[i + j] != '?')
     j++;
   res = ft_strndup(s + i, j);
+  // res = get_dollar_word(s + i);
+  return (res);
+}
+
+char *get_dollar_word(char *s) {
+  char *tokens;
+  int i;
+  char *res;
+
+  i = 0;
+  tokens = ft_strdup(" |<>\"'?");
+  while (s[i] && !ft_strchr(tokens, s[i]))
+    i++;
+  res = ft_strndup(s, i);
+  free(tokens);
   return (res);
 }
 
@@ -57,7 +71,7 @@ char *replace_dollar(char *s, char *to_replace, char *replacement) {
   to_replace_len = ft_strlen(to_replace);
   replacement_len = ft_strlen(replacement);
   res = ft_malloc(sizeof(char) *
-                  (ft_strlen(s) + replacement_len - to_replace_len + 2));
+                  (ft_strlen(s) + replacement_len - to_replace_len + 1));
   i = 0;
   while (s[i] && s[i] != '$')
     i++;

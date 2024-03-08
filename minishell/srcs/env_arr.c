@@ -61,6 +61,11 @@ char *get_env(t_ms *ms, char *s) {
   char *res;
   int i;
 
+  if (s[0] == '?') {
+    res = ft_itoa(ms->latest_err);
+    ft_printf("res = %s");
+    return (res);
+  }
   i = find_key(ms->env, s);
   if (i >= 0) {
     res = ft_strdup(ms->env[i] + ft_strlen(s) + 1);

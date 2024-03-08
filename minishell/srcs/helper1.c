@@ -39,3 +39,27 @@ void free_double_array(char **arr) {
     free(arr[i]);
   free(arr);
 }
+
+char **insert_2d_arr(char **arr, char *val) {
+  int i;
+  char **temp;
+
+  if (!arr) {
+
+    temp = ft_malloc(sizeof(char *) * 2);
+    i = 0;
+  } else {
+    i = 0;
+    while (arr[i])
+      i++;
+    temp = ft_malloc(sizeof(char *) * (i + 2));
+    i = -1;
+    while (arr[++i])
+      temp[i] = ft_strdup(arr[i]);
+  }
+  temp[i++] = ft_strdup(val);
+  temp[i] = NULL;
+  if (arr)
+    free_double_array(arr);
+  return (temp);
+}

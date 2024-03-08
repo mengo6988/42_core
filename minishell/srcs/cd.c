@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int builtin_cd(t_ms *ms, char **args) {
+int cd(t_ms *ms, char **args) {
   char *path;
   if (!args[1] || args[1][0] == '~') {
     path = get_env(ms, "HOME");
@@ -32,16 +32,51 @@ void replace_pwd(t_ms *ms) {
   key = ft_strdup("OLDPWD=");
 
   key = joinf(key, value);
-  export(ms, key);
+  export(ms, &key);
   free(value);
   free(key);
   value = getcwd(NULL, 0);
   key = ft_strdup("PWD=");
   key = joinf(key, value);
-  export(ms, key);
+  export(ms, &key);
   free(key);
   return;
 }
 
 // TODO: replace oldpwd with pwd
 // getcwd and replace pwd with it
+
+int ft_exit(t_ms *ms, char **args) {
+  int len;
+
+  len = 0;
+  while (args[len])
+    len++;
+  if (len > 2) {
+    printf("minishell: exit: too many arguments\n");
+    // TODO: set return value to 1
+    return (1);
+  }
+  if (!ft_isnum(args[1])) {
+    printf("minishell: exit: %s: numeric argument required\n", args[1]);
+    // TODO: set return value to 255
+    // set exit to true
+    return (1);
+  } else {
+    len = ft_atoi(args[1]);
+    // TODO:set return value to arguments
+    // set exit to true
+    return (0);
+  }
+}
+
+int pwd(t_ms *ms, char **args) {
+  char *pwd;
+
+  (void)ms;
+  (void)args;
+  pwd = getcwd(NULL, 0);
+  ft_printf("%s\n", pwd);
+  free(pwd);
+  return (0);
+}

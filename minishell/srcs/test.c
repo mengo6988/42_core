@@ -2,7 +2,6 @@
 
 void print_token(t_token *head) {
   t_token *current;
-  int i;
 
   if (!head) {
     ft_printf("nothing here\n");
@@ -12,7 +11,6 @@ void print_token(t_token *head) {
                     "S_QUOTE", "D_QUOTE", "FILEPATH"};
   char *rdr[5] = {"NONE", "IN", "OUT", "APP", "HERE"};
   current = head;
-  i = 0;
   while (current) {
     ft_printf("---------------TOKEN------------\n");
     ft_printf("%i \n", current->i);
@@ -20,12 +18,72 @@ void print_token(t_token *head) {
     ft_printf("type = %s\n", list[current->type]);
     ft_printf("rdr = %s\n", rdr[current->rdr_type]);
     ft_printf("args = ");
-    for (int i = 0; current->args[i]; i++)
-      ft_printf("%s, ", current->args[i]);
+    if (current->args) {
+      for (int i = 0; current->args[i]; i++)
+        ft_printf("%s, ", current->args[i]);
+
+    } else
+      ft_printf("null");
+    ft_printf("\n");
+
+    ft_printf("infile = ");
+    if (current->infile) {
+      for (int i = 0; current->infile[i]; i++)
+        ft_printf("%s, ", current->infile[i]);
+
+    } else
+      ft_printf("null");
+    ft_printf("\n");
+
+    ft_printf("outfile = ");
+    if (current->outfile) {
+      for (int i = 0; current->outfile[i]; i++)
+        ft_printf("%s, ", current->outfile[i]);
+
+    } else
+      ft_printf("null");
     ft_printf("\n");
     ft_printf("--------------------------------\n");
-    i++;
     current = current->next;
+  }
+  current = head;
+  while (current->next)
+    current = current->next;
+  printf("\n\n-----------------BACKWARDS-------------\n");
+  while (current) {
+    ft_printf("---------------TOKENb------------\n");
+    ft_printf("%i \n", current->i);
+    ft_printf("raw = %s\n", current->raw);
+    ft_printf("type = %s\n", list[current->type]);
+    ft_printf("rdr = %s\n", rdr[current->rdr_type]);
+    ft_printf("args = ");
+    if (current->args) {
+      for (int i = 0; current->args[i]; i++)
+        ft_printf("%s, ", current->args[i]);
+
+    } else
+      ft_printf("null");
+    ft_printf("\n");
+
+    ft_printf("infile = ");
+    if (current->infile) {
+      for (int i = 0; current->infile[i]; i++)
+        ft_printf("%s, ", current->infile[i]);
+
+    } else
+      ft_printf("null");
+    ft_printf("\n");
+
+    ft_printf("outfile = ");
+    if (current->outfile) {
+      for (int i = 0; current->outfile[i]; i++)
+        ft_printf("%s, ", current->outfile[i]);
+
+    } else
+      ft_printf("null");
+    ft_printf("\n");
+    ft_printf("--------------------------------\n");
+    current = current->prev;
   }
 }
 
@@ -42,18 +100,7 @@ int main(int ac, char **av, char **env) {
   // for (int i = 0; ms.env[i]; i++)
   //   ft_printf("%s\n", ms.env[i]);
   while (1) {
-    ms.input = readline("minishell > ");
-    ms_addhistory(&ms);
-    tokenize(&ms);
-    expand_dollars(&ms, &(ms.token));
-    token_rmquotes(&ms);
-    token_settype(&ms);
-    set_builtin(&ms);
-    combine_tokens(&ms);
-    print_token(ms.token);
-    token_deleteall(&ms.token);
-    free(ms.input);
-    ms.input = NULL;
+    ms_readline(&ms);
   }
   return (0);
 }

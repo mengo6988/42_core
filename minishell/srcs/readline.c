@@ -16,6 +16,9 @@ void ms_readline(t_ms *ms) {
   token_settype(ms);
   set_builtin(ms);
   combine_tokens(ms);
+  pre_rdr(ms);
+  handle_rdr(ms);
+  delete_rdr(ms);
   print_token(ms->token);
   token_deleteall(&ms->token);
   free(ms->input);

@@ -1,6 +1,7 @@
 #ifndef MINI_STRUCTS_H
 #define MINI_STRUCTS_H
 
+struct s_ms;
 typedef int (*t_bif)(struct s_ms *ms, char **args);
 
 typedef enum e_type {
@@ -35,12 +36,12 @@ typedef struct s_token {
   int i;
   t_rdr rdr_type;
   t_bool is_quotes;
-  //  int *pipe;
+  // int *pipe;
   char **args;
-  //  char *infile;
-  //  char *outfile;
-  // int out_fd;
-  //  int in_fd;
+  char **infile;
+  char **outfile;
+  int out_fd;
+  int in_fd;
   struct s_token *next;
   struct s_token *prev;
 } t_token;
@@ -69,8 +70,10 @@ typedef struct s_ms {
   char *input;
   char *previous_input;
   char **env;
+  char **path;
   char **function_list;
-  t_bif function_ptr;
+  char *heredoc;
+  t_bif function_ptr[7];
   t_token *token;
   int latest_err;
   t_bool exit;

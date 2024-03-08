@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "minishell.h"
 
 void ms_init(t_ms *ms, char **env) {
@@ -8,7 +9,8 @@ void ms_init(t_ms *ms, char **env) {
   ms->latest_err = 0;
   ms->exit = FALSE;
   func_list_init(ms);
-  // func_ptr_init(ms);
+  func_ptr_init(ms);
+  ms->path = get_path(ms);
 }
 
 void func_list_init(t_ms *ms) {
@@ -26,4 +28,34 @@ void func_list_init(t_ms *ms) {
   ms->function_list = ls;
 }
 
-// void func_ptr_init(t_ms *ms) {}
+void func_ptr_init(t_ms *ms) {
+  ms->function_ptr[0] = echo;
+  ms->function_ptr[1] = cd;
+  ms->function_ptr[2] = pwd;
+  ms->function_ptr[3] = export;
+  ms->function_ptr[4] = unset;
+  ms->function_ptr[5] = env;
+  ms->function_ptr[6] = ft_exit;
+}
+
+char **get_path(t_ms *ms) {
+  char *value;
+  char **res;
+  char **temp;
+  int i;
+
+  value = get_env(ms, "PATH");
+  temp = ft_split(value, ':');
+  i = 0;
+  while (temp[i])
+    i++;
+  res = ft_calloc(i + 2, sizeof(char *));
+  i = -1;
+  while (temp[++i])
+    res[i] = ft_strdup(temp[i]);
+  res[i] = ft_strdup("");
+  free_double_array(temp);
+  return (res);
+}
+
+// WARN: while path[i], join_path(path[i], cmd)

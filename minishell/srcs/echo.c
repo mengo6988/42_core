@@ -2,7 +2,6 @@
 
 int echo(t_ms *ms, char **args) {
   int flag;
-  int i;
 
   if (!args[1][0] && !args[2]) {
     ft_printf("\n");
@@ -21,9 +20,9 @@ void echo_print(char **args, int flag) {
   i = flag;
   while (args[i]) {
     ft_printf("%s", args[i]);
-    if (args[i + 1][0] == "'")
+    if (args[i + 1][0] == '\'')
       ft_strtrim(args[i + 1], "'");
-    else if (args[i + 1][0] == "\"")
+    else if (args[i + 1][0] == '"')
       ft_strtrim(args[i + 1], "\"");
     else
       ft_printf(" ");
