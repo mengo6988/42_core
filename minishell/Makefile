@@ -6,7 +6,7 @@ SRCS_DIR = srcs/
 
 OBJS_DIR = objs/
 
-SRCS_FIL = test.c helper.c env_arr.c history.c  token_test.c token_utils.c token_expand.c token_class.c export.c cd.c unset.c init.c readline.c helper1.c echo.c execute.c redirect.c heredoc.c
+SRCS_FIL = test.c helper.c env_arr.c history.c  token_test.c token_utils.c token_expand.c token_class.c export.c cd.c unset.c init.c readline.c helper1.c echo.c execute.c redirect.c heredoc.c reset.c
 
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS_FIL))
 

@@ -19,7 +19,9 @@ void ms_readline(t_ms *ms) {
   pre_rdr(ms);
   handle_rdr(ms);
   delete_rdr(ms);
+  handle_heredocs(ms);
   print_token(ms->token);
+  rm_heredoc(ms);
   token_deleteall(&ms->token);
   free(ms->input);
   ms->input = NULL;

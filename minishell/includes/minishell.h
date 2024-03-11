@@ -3,6 +3,7 @@
 
 #include "libft.h"
 #include "mini_structs.h"
+#include <fcntl.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 
@@ -75,13 +76,20 @@ char *get_dollar_word(char *s);
 char *replace_dollar(char *s, char *to_replace, char *replacement);
 
 // HEREDOC
-char *get_heredoc_file(void);
+void handle_heredocs(t_ms *ms);
+void delete_heredocs(t_ms *ms);
+void execute_heredoc(char *filename, char *eof);
+char *heredoc_name_generator(void);
+char *get_heredoc(t_token *token);
+
+void rm_heredoc(t_ms *ms);
 
 // REDIR
 void handle_rdr(t_ms *ms);
 void add_rdr(t_token *current, t_token *cmd);
 void delete_rdr(t_ms *ms);
 void pre_rdr(t_ms *ms);
+t_token *get_cmd(t_token *current);
 
 // CD
 int builtin_cd(t_ms *ms, char **args);

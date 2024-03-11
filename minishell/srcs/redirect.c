@@ -7,11 +7,10 @@ void handle_rdr(t_ms *ms) {
   int flag;
 
   current = ms->token;
+  cmd = get_cmd(current);
   while (current) {
-    if (current->type == CMD)
-      cmd = current;
     if (current->type == PIPE) {
-      cmd = NULL;
+      cmd = get_cmd(current);
       flag = 0;
     }
     if (current->rdr_type != 0 && current->rdr_type != HEREDOC && cmd)
@@ -24,6 +23,20 @@ void handle_rdr(t_ms *ms) {
   }
 }
 
+t_token *get_cmd(t_token *current) {
+  t_token *res;
+
+  if (current->type == CMD)
+    return (current);
+  res = current->next;
+  while (res && res->type != PIPE) {
+    if (res->type == CMD)
+      return (res);
+    res = res->next;
+  }
+  return (NULL);
+}
+
 void add_rdr(t_token *current, t_token *cmd) {
   char *here;
 
@@ -32,7 +45,7 @@ void add_rdr(t_token *current, t_token *cmd) {
   else if (current->rdr_type == IN)
     cmd->infile = insert_2d_arr(cmd->infile, current->args[1]);
   else {
-    here = get_heredoc_file();
+    here = heredoc_name_generator();
     cmd->infile = insert_2d_arr(cmd->infile, here);
     free(here);
   }
@@ -41,15 +54,16 @@ void add_rdr(t_token *current, t_token *cmd) {
 void delete_rdr(t_ms *ms) {
   t_token *current;
   t_token *temp;
-  int flag;
 
   current = ms->token;
+  while (current->rdr_type != 0 && current->rdr_type != HEREDOC) {
+    temp = current;
+    current = current->next;
+    token_delete(temp);
+    ms->token = current;
+  }
   while (current) {
-    if (current->type == CMD)
-      flag = 1;
-    else if (current->type == PIPE)
-      flag = 0;
-    if (current->rdr_type != 0 && current->rdr_type != HEREDOC && flag == 1) {
+    if (current->rdr_type != 0 && current->rdr_type != HEREDOC) {
       temp = current;
       current = current->next;
       token_delete(temp);
@@ -68,15 +82,12 @@ void pre_rdr(t_ms *ms) {
   temp = current;
   while (current) {
     if (current->type == CMD) {
-      ft_printf("found cmd\n");
       flag = 1;
     }
     if (current->type == PIPE && flag) {
-      ft_printf("found pipe, set flag to 0 \n");
       temp = current;
       flag = 0;
     } else if ((current->type == PIPE && !flag) || (!current->next && !flag)) {
-      ft_printf("found pipe, creating null cmd \n");
       new = token_new();
       new->type = CMD;
       new->raw = ft_calloc(1, sizeof(char));

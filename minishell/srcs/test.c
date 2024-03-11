@@ -46,45 +46,45 @@ void print_token(t_token *head) {
     ft_printf("--------------------------------\n");
     current = current->next;
   }
-  current = head;
-  while (current->next)
-    current = current->next;
-  printf("\n\n-----------------BACKWARDS-------------\n");
-  while (current) {
-    ft_printf("---------------TOKENb------------\n");
-    ft_printf("%i \n", current->i);
-    ft_printf("raw = %s\n", current->raw);
-    ft_printf("type = %s\n", list[current->type]);
-    ft_printf("rdr = %s\n", rdr[current->rdr_type]);
-    ft_printf("args = ");
-    if (current->args) {
-      for (int i = 0; current->args[i]; i++)
-        ft_printf("%s, ", current->args[i]);
-
-    } else
-      ft_printf("null");
-    ft_printf("\n");
-
-    ft_printf("infile = ");
-    if (current->infile) {
-      for (int i = 0; current->infile[i]; i++)
-        ft_printf("%s, ", current->infile[i]);
-
-    } else
-      ft_printf("null");
-    ft_printf("\n");
-
-    ft_printf("outfile = ");
-    if (current->outfile) {
-      for (int i = 0; current->outfile[i]; i++)
-        ft_printf("%s, ", current->outfile[i]);
-
-    } else
-      ft_printf("null");
-    ft_printf("\n");
-    ft_printf("--------------------------------\n");
-    current = current->prev;
-  }
+  // current = head;
+  // while (current->next)
+  //   current = current->next;
+  // printf("\n\n-----------------BACKWARDS-------------\n");
+  // while (current) {
+  //   ft_printf("---------------TOKENb------------\n");
+  //   ft_printf("%i \n", current->i);
+  //   ft_printf("raw = %s\n", current->raw);
+  //   ft_printf("type = %s\n", list[current->type]);
+  //   ft_printf("rdr = %s\n", rdr[current->rdr_type]);
+  //   ft_printf("args = ");
+  //   if (current->args) {
+  //     for (int i = 0; current->args[i]; i++)
+  //       ft_printf("%s, ", current->args[i]);
+  //
+  //   } else
+  //     ft_printf("null");
+  //   ft_printf("\n");
+  //
+  //   ft_printf("infile = ");
+  //   if (current->infile) {
+  //     for (int i = 0; current->infile[i]; i++)
+  //       ft_printf("%s, ", current->infile[i]);
+  //
+  //   } else
+  //     ft_printf("null");
+  //   ft_printf("\n");
+  //
+  //   ft_printf("outfile = ");
+  //   if (current->outfile) {
+  //     for (int i = 0; current->outfile[i]; i++)
+  //       ft_printf("%s, ", current->outfile[i]);
+  //
+  //   } else
+  //     ft_printf("null");
+  //   ft_printf("\n");
+  //   ft_printf("--------------------------------\n");
+  //   current = current->prev;
+  // }
 }
 
 int main(int ac, char **av, char **env) {
