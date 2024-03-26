@@ -16,7 +16,7 @@ public:
 
   // getters & setters
   void setName(std::string name);
-  void setWeapon(Weapon weapon);
+  void setWeapon(Weapon &weapon);
   std::string getName();
   Weapon getWeapon();
 
