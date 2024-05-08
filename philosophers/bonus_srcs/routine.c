@@ -14,15 +14,17 @@
 
 void *routine(void *data) {
   t_philo *philo;
-	pthread_t monitor_thread;
+  pthread_t monitor_thread;
 
   philo = (t_philo *)data;
   pthread_create(&monitor_thread, NULL, &monitor, philo);
+  sem_wait(philo->stop);
   while (1) {
     eat(philo);
     sleeping(philo);
     think(philo);
   }
+  sem_post(philo->stop);
   return (data);
 }
 
@@ -53,4 +55,3 @@ void eat(t_philo *philo) {
   sem_post(philo->chopsticks);
   sem_post(philo->chopsticks);
 }
-

@@ -15,6 +15,7 @@
 void	fork_init(t_data *data)
 {
     int i;
+	int status;
 
     i = -1;
     while (++i < data->philos[0].number_of_philos)
@@ -27,6 +28,9 @@ void	fork_init(t_data *data)
         }
         ft_usleep(1);
     }
+	i = -1;
+	while (++i < data->philos[0].number_of_philos)
+		wait(&status);
 }
 
 void	*monitor(void *ptr)
