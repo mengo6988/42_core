@@ -10,22 +10,31 @@ int echo(t_ms *ms, char **args) {
   flag = 1;
   while (ft_strcmp(args[flag], "-n") == 0)
     flag++;
+  // printf("flag = %i\n", flag);
   echo_print(args, flag);
   return (0);
 }
 
 void echo_print(char **args, int flag) {
   int i;
+  char *str;
 
   i = flag;
   while (args[i]) {
-    ft_printf("%s", args[i]);
-    if (args[i + 1][0] == '\'')
-      ft_strtrim(args[i + 1], "'");
-    else if (args[i + 1][0] == '"')
-      ft_strtrim(args[i + 1], "\"");
+    if (args[i][0] == '\'')
+      str = ft_strtrim(args[i], "'");
+    else if (args[i][0] == '"')
+      str = ft_strtrim(args[i], "\"");
     else
-      ft_printf(" ");
+      str = ft_strdup(args[i]);
+    if (i == flag && args[i][0] == ' ')
+      ft_printf("%s", str + 1);
+    else
+      ft_printf("%s", str);
+    // if ((args[i + 1] && args[i + 1][0] == '\'') ||
+    //     (args[i + 1] && args[i + 1][0] != '"'))
+    //   ft_printf(" ");
+    free(str);
     i++;
   }
   if (flag <= 1)

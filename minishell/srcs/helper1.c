@@ -61,5 +61,15 @@ char **insert_2d_arr(char **arr, char *val) {
   temp[i] = NULL;
   if (arr)
     free_double_array(arr);
+  free(val);
   return (temp);
+}
+
+int error(char *cmd, char *str) {
+
+  if (cmd)
+    ft_printf("minishell: %s: %s\n", cmd, str);
+  else
+    ft_printf("minishell: %s\n", str);
+  return (1);
 }

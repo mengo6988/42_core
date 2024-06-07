@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "minishell.h"
 
 void export_to_env(t_ms *ms, char *s) {
@@ -7,8 +8,10 @@ void export_to_env(t_ms *ms, char *s) {
   i = 0;
   while (s[i] && s[i] != '=')
     i++;
-  if (!s[i])
+  if (!s[i]) {
+    // insert_new_env(ms, s);
     return;
+  }
   key = ft_strndup(s, i);
   i = find_key(ms->env, key);
   free(key);
@@ -21,6 +24,17 @@ void export_to_env(t_ms *ms, char *s) {
   }
 }
 
+void pre_export(char **args) {
+  int i;
+
+  i = -1;
+  while (args[++i]) {
+    if (args[i][ft_strlen(args[i]) - 1] == '=' && args[i + 1]) {
+      args[i] = joinf(args[i], args[i + 1]);
+    }
+  }
+}
+
 int export(t_ms *ms, char **args) {
   int i;
 
@@ -29,9 +43,12 @@ int export(t_ms *ms, char **args) {
     while (ms->env[++i])
       ft_printf("declare -x %s\n", ms->env[i]);
   } else {
+    pre_export(args);
     i = 0;
-    while (args[++i])
+    while (args[++i]) {
+      printf("args: %s\n", args[i]);
       export_to_env(ms, args[i]);
+    }
   }
   return (0);
 }

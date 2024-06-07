@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "mini_structs.h"
 #include "minishell.h"
 
@@ -40,14 +41,15 @@ t_token *get_cmd(t_token *current) {
 void add_rdr(t_token *current, t_token *cmd) {
   char *here;
 
-  if (current->rdr_type == OUT || current->rdr_type == APPEND)
-    cmd->outfile = insert_2d_arr(cmd->outfile, current->args[1]);
-  else if (current->rdr_type == IN)
-    cmd->infile = insert_2d_arr(cmd->infile, current->args[1]);
-  else {
+  if (current->rdr_type == OUT)
+    cmd->file = insert_2d_arr(cmd->file, ft_strjoin("out", current->args[1]));
+  if (current->rdr_type == APPEND)
+    cmd->file = insert_2d_arr(cmd->file, ft_strjoin("app", current->args[1]));
+  if (current->rdr_type == IN)
+    cmd->file = insert_2d_arr(cmd->file, ft_strjoin("inn", current->args[1]));
+  if (current->rdr_type == HEREDOC) {
     here = heredoc_name_generator();
-    cmd->infile = insert_2d_arr(cmd->infile, here);
-    free(here);
+    cmd->file = insert_2d_arr(cmd->file, here);
   }
 }
 

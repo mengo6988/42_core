@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <stdint.h>
 
 int cd(t_ms *ms, char **args) {
   char *path;
@@ -32,13 +33,13 @@ void replace_pwd(t_ms *ms) {
   key = ft_strdup("OLDPWD=");
 
   key = joinf(key, value);
-  export(ms, &key);
+  export_to_env(ms, key);
   free(value);
   free(key);
   value = getcwd(NULL, 0);
   key = ft_strdup("PWD=");
   key = joinf(key, value);
-  export(ms, &key);
+  export_to_env(ms, key);
   free(key);
   return;
 }
@@ -47,7 +48,7 @@ void replace_pwd(t_ms *ms) {
 // getcwd and replace pwd with it
 
 int ft_exit(t_ms *ms, char **args) {
-  int len;
+  uint8_t len;
 
   len = 0;
   while (args[len])
@@ -55,18 +56,21 @@ int ft_exit(t_ms *ms, char **args) {
   if (len > 2) {
     printf("minishell: exit: too many arguments\n");
     // TODO: set return value to 1
-    return (1);
+    exit(1);
+  } else if (len == 1) {
+    printf("exit\n\n");
+    exit(ms->latest_err);
   }
   if (!ft_isnum(args[1])) {
     printf("minishell: exit: %s: numeric argument required\n", args[1]);
     // TODO: set return value to 255
     // set exit to true
-    return (1);
+    exit(255);
   } else {
     len = ft_atoi(args[1]);
     // TODO:set return value to arguments
     // set exit to true
-    return (0);
+    exit(len);
   }
 }
 

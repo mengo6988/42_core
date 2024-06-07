@@ -22,7 +22,7 @@ void handle_heredocs(t_ms *ms) {
         free(hd);
       hd = get_heredoc(cmd);
     } else if (current->type == REDIRECTION && current->rdr_type == HEREDOC)
-      execute_heredoc(hd, current->args[1]);
+      execute_heredoc(ms, hd, current->args[1]);
     current = current->next;
   }
   delete_heredocs(ms);
@@ -33,14 +33,14 @@ void delete_heredocs(t_ms *ms) {
   t_token *temp;
 
   current = ms->token;
-  while (current->rdr_type == HEREDOC) {
+  while (current->type != CMD) {
     temp = current;
     current = current->next;
     token_delete(temp);
     ms->token = current;
   }
   while (current) {
-    if (current->rdr_type == HEREDOC) {
+    if (current->type != CMD) {
       temp = current;
       current = current->next;
       token_delete(temp);
@@ -50,17 +50,17 @@ void delete_heredocs(t_ms *ms) {
   }
 }
 
-void execute_heredoc(char *filename, char *eof) {
+void execute_heredoc(t_ms *ms, char *filename, char *eof) {
   int fd;
   char *res;
-  char *end;
 
-  end = ft_strjoin(eof, "\n");
   fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, S_IRWXU | S_IRGRP | S_IROTH);
   while (1) {
     res = readline("> ");
-    if (res == NULL || ft_strcmp(res, end) == 0)
+    if (ft_strcmp(res, eof) == 0)
       break;
+    handle_dollars(ms, &res, TRUE);
+    res = joinf(res, "\n");
     ft_putstr_fd(res, fd);
     free(res);
     res = NULL;
@@ -77,9 +77,9 @@ char *get_heredoc(t_token *token) {
   }
   i = -1;
   res = NULL;
-  while (token->infile[++i]) {
-    if (ft_strncmp(token->infile[i], "heredoc", 7) == 0)
-      res = ft_strdup(token->infile[i]);
+  while (token->file && token->file[++i]) {
+    if (ft_strncmp(token->file[i], "heredoc", 7) == 0)
+      res = ft_strdup(token->file[i]);
   }
   return (res);
 }

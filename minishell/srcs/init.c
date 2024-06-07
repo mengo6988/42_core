@@ -10,7 +10,7 @@ void ms_init(t_ms *ms, char **env) {
   ms->exit = FALSE;
   func_list_init(ms);
   func_ptr_init(ms);
-  ms->path = get_path(ms);
+  get_path(ms);
 }
 
 void func_list_init(t_ms *ms) {
@@ -38,7 +38,7 @@ void func_ptr_init(t_ms *ms) {
   ms->function_ptr[6] = ft_exit;
 }
 
-char **get_path(t_ms *ms) {
+void get_path(t_ms *ms) {
   char *value;
   char **res;
   char **temp;
@@ -52,10 +52,12 @@ char **get_path(t_ms *ms) {
   res = ft_calloc(i + 2, sizeof(char *));
   i = -1;
   while (temp[++i])
-    res[i] = ft_strdup(temp[i]);
+    res[i] = ft_strjoin(temp[i], "/");
   res[i] = ft_strdup("");
   free_double_array(temp);
-  return (res);
+  if (ms->path)
+    free_double_array(ms->path);
+  ms->path = res;
 }
 
 // WARN: while path[i], join_path(path[i], cmd)

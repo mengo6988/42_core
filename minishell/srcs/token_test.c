@@ -77,22 +77,24 @@ void tk_pipe(t_ms *ms, int *i) {
 
 void tk_quotes(t_ms *ms, int *i) {
   t_token *new;
-  char c;
+  char *str;
   int j;
 
   new = token_new();
-  c = ms->input[*i];
   j = 1;
-  while (ms->input[*i + j] && ms->input[*i + j] != c)
+  while (ms->input[*i + j] && ms->input[*i + j] != ms->input[*i])
     j++;
-  new->raw = ft_strndup(ms->input + *i, ++j);
-  if (c == '\'')
+  if (ms->input[*i] == '\'')
     new->type = S_QUOTE;
   else
     new->type = D_QUOTE;
-  new->rdr_type = 0;
+  if (ms->input[*i - 1] == ' ')
+    new->raw = ft_strdup(" ");
+  else
+    new->raw = ft_strdup("");
+  str = ft_strndup(ms->input + ++(*i), j);
+  new->raw = joinf(new->raw, str);
   new->is_quotes = TRUE;
-  new->args = NULL;
   token_add_back(&ms->token, new);
   (*i) += j;
 }

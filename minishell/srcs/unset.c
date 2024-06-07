@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "minishell.h"
 
 int unset(t_ms *ms, char **args) {
@@ -25,8 +26,8 @@ int unset(t_ms *ms, char **args) {
 int env(t_ms *ms, char **args) {
   int i;
 
-  i = -1;
-  while (args[++i] && ft_strcmp(args[i], "env") == 0)
+  i = 0;
+  while (args[i] && args[i][0] != '\0' && ft_strcmp(args[i], "env") == 0)
     i++;
   if (args[i]) {
     write(2, "env: ", 5);
@@ -36,7 +37,8 @@ int env(t_ms *ms, char **args) {
   }
   i = -1;
   while (ms->env[++i])
-    ft_printf("%s\n", ms->env[i]);
+    if (ft_strrchr(ms->env[i], '='))
+      ft_printf("%s\n", ms->env[i]);
   return (0);
 }
 

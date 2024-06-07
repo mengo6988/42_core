@@ -3,9 +3,13 @@
 
 #include "libft.h"
 #include "mini_structs.h"
+#include <errno.h>
 #include <fcntl.h>
 #include <readline/history.h>
 #include <readline/readline.h>
+#include <signal.h>
+#include <stdio.h>
+#include <termios.h>
 
 // ENV LL
 // void process_env(t_ms *ms);
@@ -22,6 +26,7 @@ char *get_env(t_ms *ms, char *s);
 // export
 void export_to_env(t_ms *ms, char *s);
 int export(t_ms *ms, char **args);
+void pre_export(char **args);
 
 // echo
 int echo(t_ms *ms, char **args);
@@ -50,9 +55,12 @@ int ft_isnum(const char *s);
 char *join_path(char *path, char *command);
 void free_double_array(char **arr);
 char **insert_2d_arr(char **arr, char *val);
+int error(char *cmd, char *str);
 
 // READLINE
 void ms_readline(t_ms *ms);
+int count_char(char *s, char c);
+void handle_unclosed(t_ms *ms);
 
 // HISTORY
 void ms_addhistory(t_ms *ms);
@@ -69,19 +77,21 @@ void token_deleteall(t_token **head);
 void token_insert(t_token *current, t_token *to_add);
 
 // DOLLAR UTILS
-void expand_dollars(t_ms *ms, char **s);
-char *add_quotes(char *s);
+void handle_dollars(t_ms *ms, char **s, t_bool hdoc);
+// void expand_dollars(t_ms *ms, char **s);
+char *dollar_expansion(t_ms *ms, char *s, int *i);
 char *get_dollar_key(char *s);
-char *get_dollar_word(char *s);
-char *replace_dollar(char *s, char *to_replace, char *replacement);
+// char *get_dollar_word(char *s);
+char *replace_dollar(char *s, char *to_replace, char *replacement, int *i);
 
 // HEREDOC
 void handle_heredocs(t_ms *ms);
 void delete_heredocs(t_ms *ms);
-void execute_heredoc(char *filename, char *eof);
+void execute_heredoc(t_ms *ms, char *filename, char *eof);
 char *heredoc_name_generator(void);
 char *get_heredoc(t_token *token);
 
+// RESET
 void rm_heredoc(t_ms *ms);
 
 // REDIR
@@ -109,11 +119,32 @@ void set_builtin(t_ms *ms);
 void combine_tokens(t_ms *ms);
 void add_args_to_cmd(t_token **token);
 
+// FD
+void open_fd(t_token *token);
+void ft_open(t_token *token, char *filename, t_rdr type);
+void ft_dup2(char *str, int oldfd, int newfd);
+void child_dup(t_token *current, int pipe_fd[2][2]);
+void main_pipes(t_token *current, int pipe_fd[2][2]);
+
+// EXECUTE
+void run_execve(t_ms *ms, char **args);
+int singlecmd(t_ms *ms, pid_t *pid);
+int multicmd(t_ms *ms, pid_t *pid);
+pid_t *pid_init(t_token *token);
+void execution(t_ms *ms);
+void wait_child(t_ms *ms, pid_t *pid);
+
 // init
 void ms_init(t_ms *ms, char **env);
 void func_list_init(t_ms *ms);
 void func_ptr_init(t_ms *ms);
-char **get_path(t_ms *ms);
+void get_path(t_ms *ms);
+
+// signal
+void signal_init(void);
+void sigint_handler(int sig);
+void reset_signal(void);
 
 void print_token(t_token *head);
+void print_current(t_token *head);
 #endif

@@ -38,26 +38,12 @@ typedef struct s_token {
   t_bool is_quotes;
   // int *pipe;
   char **args;
-  char **infile;
-  char **outfile;
+  char **file;
   int out_fd;
   int in_fd;
   struct s_token *next;
   struct s_token *prev;
 } t_token;
-
-typedef struct s_cmd {
-  t_type type;
-  t_builtin builtin;
-  char *raw;
-  char **args;
-  char *infile;
-  char *outfile;
-  int in_fd;
-  int out_fd;
-  struct s_cmd *next;
-  struct t_cmd *prev;
-} t_cmd;
 
 typedef struct s_env {
   char *raw;

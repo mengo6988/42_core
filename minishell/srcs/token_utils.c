@@ -9,12 +9,13 @@ t_token *token_new(void) {
   res->next = NULL;
   res->prev = NULL;
   res->args = NULL;
+  res->builtin = NONE;
   // res->pipe = NULL;
-  res->infile = NULL;
-  res->outfile = NULL;
+  res->file = NULL;
   res->rdr_type = 0;
-  res->in_fd = -1;
-  res->out_fd = -1;
+  res->in_fd = -69;
+  res->out_fd = -69;
+  res->rdr_type = 0;
   res->i = 0;
   return (res);
 }
@@ -48,6 +49,8 @@ void token_delete(t_token *token) {
     temp_next->prev = temp_prev;
   if (temp_prev)
     temp_prev->next = temp_next;
+  if (current->args)
+    free_double_array(current->args);
   free(current->raw);
   free(current);
   return;
@@ -60,6 +63,8 @@ void token_deleteall(t_token **head) {
   current = *head;
   while (current) {
     free(current->raw);
+    if (current->args)
+      free_double_array(current->args);
     tmp = current;
     current = current->next;
     free(tmp);
@@ -75,15 +80,6 @@ void token_insert(t_token *current, t_token *to_add) {
 
     current->next = to_add;
     temp->prev = to_add;
-    // printf("\n");
-    // printf("current: %p\n", current);
-    // printf("current next prev: %p\n", current->next->prev);
-    // printf("current prev: %p\n", current->prev);
-    // printf("current next: %p\n", &current->next);
-    // printf("to_add: %p\n", to_add);
-    // printf("to_add next: %p\n", to_add->next);
-    // printf("to_add next prev: %p\n", to_add->next->prev);
-    // printf("\n");
   } else {
     current->next = to_add;
     to_add->prev = current;

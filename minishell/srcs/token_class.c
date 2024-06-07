@@ -104,10 +104,10 @@ void add_args_to_cmd(t_token **token) {
   i = -1;
   current = (*token);
   while (++i < len) {
-    if ((*token)->builtin == ECHO && current->is_quotes == TRUE)
-      (*token)->args[i] = add_quotes(current->raw);
-    else
-      (*token)->args[i] = ft_strdup(current->raw);
+    // if ((*token)->builtin == ECHO && current->is_quotes == TRUE)
+    //   (*token)->args[i] = add_quotes(current->raw);
+    // else
+    (*token)->args[i] = ft_strdup(current->raw);
     // (*token)->args[i] = s;
     current = current->next;
   }
