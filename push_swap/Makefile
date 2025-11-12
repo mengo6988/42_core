@@ -125,14 +125,14 @@ fcleans: fclean_loader
 
 re: fcleans all complete
 
-# rotate_art:
-# 	@sleep 0.2 && echo ${ART1}
-# 	@sleep 0.2 && echo -e "\033[2J\033[H"
-# 	@sleep 0.2 && echo ${ART2}
-# 	@sleep 0.2 && echo -e "\033[2J\033[H"
-# 	@sleep 0.2 && echo ${ART1}
-# 	@sleep 0.2 && echo -e "\033[2J\033[H"
-# 	@sleep 0.2 && echo ${ART2}
+rotate_art:
+	@sleep 0.2 && echo ${ART1}
+	@sleep 0.2 && echo -e "\033[2J\033[H"
+	@sleep 0.2 && echo ${ART2}
+	@sleep 0.2 && echo -e "\033[2J\033[H"
+	@sleep 0.2 && echo ${ART1}
+	@sleep 0.2 && echo -e "\033[2J\033[H"
+	@sleep 0.2 && echo ${ART2}
 
 builder:
 	@echo ${GREEN}":::::::::  :::    ::: ::::::::::: :::        ::::::::: ::::::::::: ::::    :::  ::::::::              "${DEF_COLOR}
